@@ -1,0 +1,106 @@
+load("//constraints:defs.bzl", "configuration_transition")
+load(
+    ":defs.bzl",
+    "ci_artifact",
+    "ci_llvm",
+    "stage0_download",
+    "stage0_executable",
+    "stage0_extract",
+    "stage0_sysroot",
+)
+
+configuration_transition(
+    name = "stage0_configuration",
+    add_fallback_settings = "//platforms:host",
+    keep_settings = [
+        "prelude//cpu/constraints:cpu",
+        "prelude//os/constraints:os",
+    ],
+    label = "stage0",
+)
+
+stage0_download(
+    name = "dist",
+    components = [
+        "cargo",
+        "clippy",
+        "rust-std",
+        "rustc",
+    ],
+    incoming_transition = ":stage0_configuration",
+    manifest = "//:stage0_manifest",
+)
+
+stage0_extract(
+    name = "extract",
+    dist = ":dist",
+    incoming_transition = ":stage0_configuration",
+)
+
+stage0_executable(
+    name = "rustc",
+    dist = ":extract[rustc]",
+    incoming_transition = ":stage0_configuration",
+    visibility = ["PUBLIC"],
+)
+
+stage0_executable(
+    name = "rustdoc",
+    dist = ":extract[rustc]",
+    env = {"RUSTC_BOOTSTRAP": "1"},
+    incoming_transition = ":stage0_configuration",
+    visibility = ["PUBLIC"],
+)
+
+stage0_executable(
+    name = "clippy-driver",
+    dist = ":extract[clippy]",
+    incoming_transition = ":stage0_configuration",
+    libdir = ":extract[rustc]",
+    visibility = ["PUBLIC"],
+)
+
+stage0_sysroot(
+    name = "sysroot",
+    dist = ":dist[rust-std]",
+    incoming_transition = ":stage0_configuration",
+    visibility = ["PUBLIC"],
+)
+
+ci_artifact(
+    name = "rust_dev",
+    commit = "c03c38d5c2368cd2aa0e056dba060b94fc747f4e",
+    component = "rust-dev-nightly",
+    incoming_transition = ":stage0_configuration",
+    manifest = "//:stage0_manifest",
+    sha256 = {
+        "aarch64-apple-darwin": "bb3654066eb816527697aa6e4d16793493517e2535a230c7f5dda5a8ecbaf5cb",
+        "aarch64-pc-windows-msvc": "7680387e1818e2d0ca842de9d22d243d424ad6e9232af32d1925c09b5cca07c1",
+        "aarch64-unknown-linux-gnu": "e6b7ef705621477cf4ef051e92acb5fb79275208a47064e03a3a67b31a607180",
+        "x86_64-apple-darwin": "c0efa84a546087f4817060e07f8c712a3c586f3846fd6c93651f0e16417273fe",
+        "x86_64-pc-windows-msvc": "f762480a89c9b83e2cce839c87f5aa7136b2aaab246900a4bae52cee0d31bb71",
+        "x86_64-unknown-linux-gnu": "7cae16ba2ab8a4eb805a007688da4ff7aac337a5211401ae2f30901c0fd07a44",
+    },
+)
+
+ci_llvm(
+    name = "ci_llvm",
+    incoming_transition = ":stage0_configuration",
+    rust_dev = ":rust_dev",
+    visibility = ["PUBLIC"],
+)
+
+python_bootstrap_binary(
+    name = "stage0_executable",
+    main = "stage0_executable.py",
+)
+
+python_bootstrap_binary(
+    name = "stage0_overlay",
+    main = "stage0_overlay.py",
+)
+
+python_bootstrap_binary(
+    name = "stage0_sysroot",
+    main = "stage0_sysroot.py",
+)

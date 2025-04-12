@@ -1,0 +1,2 @@
+buildscript.run = false
+linker_flags = ["-Wl,-rpath,$ORIGIN/../lib"]

@@ -1,0 +1,27 @@
+load("@prelude//cfg/modifier:cfg_constructor.bzl", "cfg_constructor_post_constraint_analysis", "cfg_constructor_pre_constraint_analysis")
+load("@prelude//cfg/modifier:common.bzl", "MODIFIER_METADATA_KEY")
+load("@prelude//cfg/modifier/set_cfg_modifiers.bzl", "set_cfg_modifiers")
+
+set_cfg_modifiers([])
+
+set_cfg_constructor(
+    aliases = struct(
+        # Reindeer universe (//constraints:reindeer-universe)
+        compiler = "//constraints:compiler",
+        library = "//constraints:library",
+        # Bootstrap stage (//constraints:bootstrap-stage)
+        stage1 = "//constraints:stage1",
+        stage2 = "//constraints:stage2",
+        # Architecture (prelude//cpu/constraints:cpu)
+        aarch64 = "prelude//cpu/constraints:arm64",
+        x86_64 = "prelude//cpu/constraints:x86_64",
+        # Operating system (prelude//os/constraints:os)
+        linux = "prelude//os/constraints:linux",
+        macos = "prelude//os/constraints:macos",
+        windows = "prelude//os/constraints:windows",
+    ),
+    extra_data = struct(),
+    key = MODIFIER_METADATA_KEY,
+    stage0 = cfg_constructor_pre_constraint_analysis,
+    stage1 = cfg_constructor_post_constraint_analysis,
+)

@@ -1,0 +1,63 @@
+strict_globs = true
+unresolved_fixup_error = true
+
+[cargo]
+bindeps = true
+
+[buck]
+buckfile_imports = """
+load("//crates.io:crate_download.bzl", "crate_download")
+load(
+    ":defs.bzl",
+    "cxx_bootstrap_library",
+    "rust_bootstrap_alias",
+    "rust_bootstrap_binary",
+    "rust_bootstrap_buildscript_run",
+    "rust_bootstrap_library",
+)
+
+export_file(
+    name = "stage0_manifest",
+    src = "rust/src/stage0",
+    visibility = ["//stage0:"],
+)
+
+rust_bootstrap_library(
+    name = "rustc_driver-0.0.0",
+    srcs = ["rust/compiler/rustc_driver/src/lib.rs"],
+    crate = "rustc_driver",
+    crate_root = "rust/compiler/rustc_driver/src/lib.rs",
+    edition = "2021",
+    visibility = [],
+    deps = [":rustc_driver_impl-0.0.0"],
+)
+"""
+
+alias = "rust_bootstrap_alias"
+buildscript_genrule = "rust_bootstrap_buildscript_run"
+cxx_library = "cxx_bootstrap_library"
+http_archive = "crate_download"
+rust_binary = "rust_bootstrap_binary"
+rust_library = "rust_bootstrap_library"
+
+[universe.library]
+constraint = "//constraints:library"
+include_crates = [
+    "alloc",
+    "compiler_builtins",
+    "core",
+    "panic_abort",
+    "panic_unwind",
+    "proc_macro",
+    "std",
+    "test",
+]
+
+[universe.compiler]
+constraint = "//constraints:compiler"
+include_crates = [
+    "allocator-api2",
+    "clippy",
+    "rustc-main",
+    "rustdoc-tool",
+]

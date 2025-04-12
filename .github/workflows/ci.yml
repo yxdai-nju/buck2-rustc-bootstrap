@@ -1,0 +1,32 @@
+name: Buck2
+
+on:
+  push:
+  workflow_dispatch:
+  schedule: [cron: "40 14 * * *"]
+
+permissions:
+  contents: read
+
+jobs:
+  buck2:
+    name: Buck2 on ${{matrix.os == 'ubuntu' && 'Linux' || matrix.os == 'macos' && 'macOS' || matrix.os == 'windows' && 'Windows' || '???'}}
+    runs-on: ${{matrix.os}}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu
+          - macos
+         #- windows
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/install-buck2@latest
+      - run: git submodule update --init prelude
+      - run: git submodule update --init rust
+      - run: git submodule update --init library/backtrace
+        working-directory: rust
+      - run: git submodule update --init library/stdarch
+        working-directory: rust
+      - run: buck2 run stage2:rustc -- --version --verbose
