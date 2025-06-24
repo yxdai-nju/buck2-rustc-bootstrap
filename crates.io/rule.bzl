@@ -8,7 +8,6 @@ def _crate_download_impl(ctx: AnalysisContext) -> list[Provider]:
         archive.as_output(),
         ctx.attrs.urls[0],
         sha256 = ctx.attrs.sha256,
-        is_deferrable = True,
     )
 
     output, sub_targets = unarchive(
