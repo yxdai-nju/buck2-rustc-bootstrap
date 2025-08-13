@@ -76,14 +76,14 @@ def rust_bootstrap_library(
         default_target_platform = "//platforms/stage1:compiler"
         messages_ftl = glob(["rust/compiler/{}/messages.ftl".format(crate)])
         if messages_ftl:
-            extra_env["CARGO_PKG_NAME"] = crate
+            extra_env["CARGO_CRATE_NAME"] = crate
             extra_srcs += messages_ftl
         extra_srcs.append("rust/src/version")
         extra_env["CFG_RELEASE"] = "\\$(cat rust/src/version)"
         extra_env["CFG_RELEASE_CHANNEL"] = "dev"
         extra_env["CFG_VERSION"] = "\\$(cat rust/src/version) " + select({
-            "//constraints:stage1": "(buckified stage1)",
-            "//constraints:stage2": "(buckified stage2)",
+            "//constraints:stage1": "(buckified)",
+            "//constraints:stage2": "(buckified)",
         })
         extra_env["CFG_COMPILER_HOST_TRIPLE"] = "$(target_triple)"
         extra_deps.append("toolchains//target:target_triple")
@@ -113,11 +113,14 @@ def rust_bootstrap_library(
         srcs = srcs + extra_srcs,
         target_compatible_with = target_compatible_with,
         visibility = visibility,
-        **apply_platform_attrs(platform, kwargs | dict(
-            deps = deps + extra_deps,
-            env = env + extra_env if is_select(env) else env | extra_env,
-            rustc_flags = rustc_flags + extra_rustc_flags,
-        ))
+        **apply_platform_attrs(
+            platform,
+            kwargs | dict(
+                deps = deps + extra_deps,
+                env = (env + extra_env) if is_select(env) else (env | extra_env),
+                rustc_flags = rustc_flags + extra_rustc_flags,
+            ),
+        )
     )
 
 def rust_bootstrap_buildscript_run(**kwargs):
