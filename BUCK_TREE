@@ -1,6 +1,7 @@
 load("@prelude//cfg/modifier:cfg_constructor.bzl", "cfg_constructor_post_constraint_analysis", "cfg_constructor_pre_constraint_analysis")
 load("@prelude//cfg/modifier:common.bzl", "MODIFIER_METADATA_KEY")
 load("@prelude//cfg/modifier/set_cfg_modifiers.bzl", "set_cfg_modifiers")
+load("@prelude//rust:cargo_package.bzl", "set_reindeer_platforms")
 
 set_cfg_modifiers([])
 
@@ -15,6 +16,7 @@ set_cfg_constructor(
         # Architecture (prelude//cpu/constraints:cpu)
         aarch64 = "prelude//cpu/constraints:arm64",
         x86_64 = "prelude//cpu/constraints:x86_64",
+        riscv64 = "prelude//cpu/constraints:riscv64",
         # Operating system (prelude//os/constraints:os)
         linux = "prelude//os/constraints:linux",
         macos = "prelude//os/constraints:macos",
@@ -25,3 +27,22 @@ set_cfg_constructor(
     stage0 = cfg_constructor_pre_constraint_analysis,
     stage1 = cfg_constructor_post_constraint_analysis,
 )
+
+set_reindeer_platforms(select({
+    "DEFAULT": None,
+    "prelude//os:linux": select({
+        "DEFAULT": None,
+        "prelude//cpu:arm64": select({
+            "//constraints:library": "linux-arm64-library",
+            "//constraints:compiler": "linux-arm64-compiler",
+        }),
+        "prelude//cpu:riscv64": select({
+            "//constraints:library": "linux-riscv64-library",
+            "//constraints:compiler": "linux-riscv64-compiler",
+        }),
+        "prelude//cpu:x86_64": select({
+            "//constraints:library": "linux-x86_64-library",
+            "//constraints:compiler": "linux-x86_64-compiler",
+        }),
+    }),
+}))

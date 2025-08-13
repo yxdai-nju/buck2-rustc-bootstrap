@@ -57,3 +57,16 @@ cfgs = ["blake3_neon"]
 name = "simd_neon-aarch64"
 srcs = ["c/blake3_neon.c"]
 headers = ["c/*.h"]
+
+['cfg(target_arch = "riscv64")']
+cfgs = []
+
+[['cfg(all(target_arch = "riscv64", target_os = "linux"))'.cxx_library]]
+name = "portable"
+srcs = [
+    "c/blake3.c",
+    "c/blake3_dispatch.c",
+    "c/blake3_portable.c",
+]
+headers = ["c/*.h"]
+compatible_with = ["prelude//os/constraints:linux"]

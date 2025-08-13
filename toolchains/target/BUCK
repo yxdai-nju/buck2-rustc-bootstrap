@@ -7,6 +7,7 @@ target_triple(
         "prelude//os:linux": select({
             "prelude//cpu:arm64": "aarch64-unknown-linux-gnu",
             "prelude//cpu:x86_64": "x86_64-unknown-linux-gnu",
+            "prelude//cpu:riscv64": "riscv64gc-unknown-linux-gnu",
         }),
         "prelude//os:macos": select({
             "prelude//cpu:arm64": "aarch64-apple-darwin",

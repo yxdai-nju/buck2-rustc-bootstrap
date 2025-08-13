@@ -24,6 +24,11 @@ env = { "STD_ENV_ARCH" = "aarch64" }
 omit_deps = ["panic_abort"]
 extra_deps = [":panic_unwind-0.0.0"]
 
+['cfg(all(target_os = "linux", target_arch = "riscv64"))']
+env = { "STD_ENV_ARCH" = "riscv64" }
+omit_deps = ["panic_abort"]
+extra_deps = [":panic_unwind-0.0.0"]
+
 ['cfg(windows)']
 env = { "STD_ENV_ARCH" = "x86_64" }
 omit_deps = ["panic_abort"]
