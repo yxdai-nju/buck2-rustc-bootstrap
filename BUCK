@@ -52,7 +52,7 @@ rust_bootstrap_library(
     },
     visibility = [],
     deps = [
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
         ":gimli-0.31.1",
     ],
 )
@@ -81,7 +81,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-library": dict(
             features = [
@@ -92,7 +92,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-library": dict(
             features = [
@@ -103,7 +103,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-library": dict(
             features = [
@@ -114,7 +114,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-library": dict(
             features = [
@@ -125,7 +125,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
     },
     visibility = [],
@@ -238,7 +238,7 @@ rust_bootstrap_library(
     edition = "2024",
     visibility = [],
     deps = [
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
         ":core-0.0.0",
     ],
 )
@@ -467,6 +467,92 @@ rust_bootstrap_library(
     crate_root = "arrayvec-0.7.6.crate/src/lib.rs",
     edition = "2018",
     visibility = [],
+)
+
+crate_download(
+    name = "askama-0.13.1.crate",
+    sha256 = "5d4744ed2eef2645831b441d8f5459689ade2ab27c854488fbab1fbe94fce1a7",
+    strip_prefix = "askama-0.13.1",
+    urls = ["https://static.crates.io/crates/askama/0.13.1/download"],
+    visibility = [],
+)
+
+rust_bootstrap_library(
+    name = "askama-0.13.1",
+    srcs = [":askama-0.13.1.crate"],
+    crate = "askama",
+    crate_root = "askama-0.13.1.crate/src/lib.rs",
+    edition = "2021",
+    features = [
+        "alloc",
+        "askama_derive",
+        "config",
+        "derive",
+    ],
+    visibility = [],
+    deps = [
+        ":askama_derive-0.13.1",
+        ":itoa-1.0.15",
+    ],
+)
+
+crate_download(
+    name = "askama_derive-0.13.1.crate",
+    sha256 = "d661e0f57be36a5c14c48f78d09011e67e0cb618f269cca9f2fd8d15b68c46ac",
+    strip_prefix = "askama_derive-0.13.1",
+    urls = ["https://static.crates.io/crates/askama_derive/0.13.1/download"],
+    visibility = [],
+)
+
+rust_bootstrap_library(
+    name = "askama_derive-0.13.1",
+    srcs = [":askama_derive-0.13.1.crate"],
+    crate = "askama_derive",
+    crate_root = "askama_derive-0.13.1.crate/src/lib.rs",
+    edition = "2021",
+    features = [
+        "alloc",
+        "config",
+    ],
+    named_deps = {
+        "parser": ":askama_parser-0.13.0",
+    },
+    proc_macro = True,
+    visibility = [],
+    deps = [
+        ":basic-toml-0.1.10",
+        ":memchr-2.7.4",
+        ":proc-macro2-1.0.101",
+        ":quote-1.0.40",
+        ":rustc-hash-2.1.1",
+        ":serde-1.0.219",
+        ":serde_derive-1.0.219",
+        ":syn-2.0.106",
+    ],
+)
+
+crate_download(
+    name = "askama_parser-0.13.0.crate",
+    sha256 = "cf315ce6524c857bb129ff794935cf6d42c82a6cff60526fe2a63593de4d0d4f",
+    strip_prefix = "askama_parser-0.13.0",
+    urls = ["https://static.crates.io/crates/askama_parser/0.13.0/download"],
+    visibility = [],
+)
+
+rust_bootstrap_library(
+    name = "askama_parser-0.13.0",
+    srcs = [":askama_parser-0.13.0.crate"],
+    crate = "askama_parser",
+    crate_root = "askama_parser-0.13.0.crate/src/lib.rs",
+    edition = "2021",
+    features = ["config"],
+    visibility = [],
+    deps = [
+        ":memchr-2.7.4",
+        ":serde-1.0.219",
+        ":serde_derive-1.0.219",
+        ":winnow-0.7.12",
+    ],
 )
 
 crate_download(
@@ -914,7 +1000,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-library": dict(
             features = [
@@ -925,7 +1011,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-library": dict(
             features = [
@@ -936,7 +1022,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-library": dict(
             features = [
@@ -947,7 +1033,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-library": dict(
             features = [
@@ -958,7 +1044,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-library": dict(
             features = [
@@ -969,7 +1055,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
     },
     visibility = [],
@@ -994,12 +1080,12 @@ rust_bootstrap_library(
 
 rust_bootstrap_alias(
     name = "clippy-cargo-clippy",
-    actual = ":clippy-0.1.87-cargo-clippy",
+    actual = ":clippy-0.1.88-cargo-clippy",
     visibility = ["PUBLIC"],
 )
 
 rust_bootstrap_binary(
-    name = "clippy-0.1.87-cargo-clippy",
+    name = "clippy-0.1.88-cargo-clippy",
     srcs = [
         "rust/src/tools/clippy/src/driver.rs",
         "rust/src/tools/clippy/src/main.rs",
@@ -1011,14 +1097,15 @@ rust_bootstrap_binary(
         "CARGO_PKG_NAME": "clippy",
         "CARGO_PKG_VERSION_MAJOR": "0",
         "CARGO_PKG_VERSION_MINOR": "1",
-        "CARGO_PKG_VERSION_PATCH": "87",
+        "CARGO_PKG_VERSION_PATCH": "88",
     },
     linker_flags = ["-Wl,-rpath,$ORIGIN/../lib"],
     visibility = [],
     deps = [
         ":anstream-0.6.20",
-        ":clippy_config-0.1.87",
-        ":clippy_lints-0.1.87",
+        ":clippy_config-0.1.88",
+        ":clippy_lints-0.1.88",
+        ":clippy_utils-0.1.88",
         ":color-print-0.3.7",
         ":rustc_driver-0.0.0",
         ":rustc_interface-0.0.0",
@@ -1031,12 +1118,12 @@ rust_bootstrap_binary(
 
 rust_bootstrap_alias(
     name = "clippy-clippy-driver",
-    actual = ":clippy-0.1.87-clippy-driver",
+    actual = ":clippy-0.1.88-clippy-driver",
     visibility = ["PUBLIC"],
 )
 
 rust_bootstrap_binary(
-    name = "clippy-0.1.87-clippy-driver",
+    name = "clippy-0.1.88-clippy-driver",
     srcs = [
         "rust/src/tools/clippy/src/driver.rs",
         "rust/src/tools/clippy/src/main.rs",
@@ -1048,14 +1135,15 @@ rust_bootstrap_binary(
         "CARGO_PKG_NAME": "clippy",
         "CARGO_PKG_VERSION_MAJOR": "0",
         "CARGO_PKG_VERSION_MINOR": "1",
-        "CARGO_PKG_VERSION_PATCH": "87",
+        "CARGO_PKG_VERSION_PATCH": "88",
     },
     linker_flags = ["-Wl,-rpath,$ORIGIN/../lib"],
     visibility = [],
     deps = [
         ":anstream-0.6.20",
-        ":clippy_config-0.1.87",
-        ":clippy_lints-0.1.87",
+        ":clippy_config-0.1.88",
+        ":clippy_lints-0.1.88",
+        ":clippy_utils-0.1.88",
         ":color-print-0.3.7",
         ":rustc_driver-0.0.0",
         ":rustc_interface-0.0.0",
@@ -1067,7 +1155,7 @@ rust_bootstrap_binary(
 )
 
 rust_bootstrap_library(
-    name = "clippy_config-0.1.87",
+    name = "clippy_config-0.1.88",
     srcs = [
         "rust/src/tools/clippy/clippy_config/src/conf.rs",
         "rust/src/tools/clippy/clippy_config/src/lib.rs",
@@ -1079,7 +1167,7 @@ rust_bootstrap_library(
     edition = "2024",
     visibility = [],
     deps = [
-        ":clippy_utils-0.1.87",
+        ":clippy_utils-0.1.88",
         ":itertools-0.12.1",
         ":rustc_errors-0.0.0",
         ":rustc_hir-0.0.0",
@@ -1092,7 +1180,7 @@ rust_bootstrap_library(
 )
 
 rust_bootstrap_library(
-    name = "clippy_lints-0.1.87",
+    name = "clippy_lints-0.1.88",
     srcs = [
         "rust/src/tools/clippy/clippy_lints/src/absolute_paths.rs",
         "rust/src/tools/clippy/clippy_lints/src/almost_complete_range.rs",
@@ -1153,6 +1241,7 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/casts/fn_to_numeric_cast.rs",
         "rust/src/tools/clippy/clippy_lints/src/casts/fn_to_numeric_cast_any.rs",
         "rust/src/tools/clippy/clippy_lints/src/casts/fn_to_numeric_cast_with_truncation.rs",
+        "rust/src/tools/clippy/clippy_lints/src/casts/manual_dangling_ptr.rs",
         "rust/src/tools/clippy/clippy_lints/src/casts/mod.rs",
         "rust/src/tools/clippy/clippy_lints/src/casts/ptr_as_ptr.rs",
         "rust/src/tools/clippy/clippy_lints/src/casts/ptr_cast_constness.rs",
@@ -1289,6 +1378,7 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/lines_filter_map_ok.rs",
         "rust/src/tools/clippy/clippy_lints/src/literal_representation.rs",
         "rust/src/tools/clippy/clippy_lints/src/literal_string_with_formatting_args.rs",
+        "rust/src/tools/clippy/clippy_lints/src/loops/char_indices_as_byte_indices.rs",
         "rust/src/tools/clippy/clippy_lints/src/loops/empty_loop.rs",
         "rust/src/tools/clippy/clippy_lints/src/loops/explicit_counter_loop.rs",
         "rust/src/tools/clippy/clippy_lints/src/loops/explicit_into_iter_loop.rs",
@@ -1317,6 +1407,7 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/macro_metavars_in_unsafe.rs",
         "rust/src/tools/clippy/clippy_lints/src/macro_use.rs",
         "rust/src/tools/clippy/clippy_lints/src/main_recursion.rs",
+        "rust/src/tools/clippy/clippy_lints/src/manual_abs_diff.rs",
         "rust/src/tools/clippy/clippy_lints/src/manual_assert.rs",
         "rust/src/tools/clippy/clippy_lints/src/manual_async_fn.rs",
         "rust/src/tools/clippy/clippy_lints/src/manual_bits.rs",
@@ -1338,7 +1429,6 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/manual_slice_size_calculation.rs",
         "rust/src/tools/clippy/clippy_lints/src/manual_string_new.rs",
         "rust/src/tools/clippy/clippy_lints/src/manual_strip.rs",
-        "rust/src/tools/clippy/clippy_lints/src/manual_unwrap_or_default.rs",
         "rust/src/tools/clippy/clippy_lints/src/map_unit_fn.rs",
         "rust/src/tools/clippy/clippy_lints/src/match_result_ok.rs",
         "rust/src/tools/clippy/clippy_lints/src/matches/collapsible_match.rs",
@@ -1351,7 +1441,6 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/matches/match_as_ref.rs",
         "rust/src/tools/clippy/clippy_lints/src/matches/match_bool.rs",
         "rust/src/tools/clippy/clippy_lints/src/matches/match_like_matches.rs",
-        "rust/src/tools/clippy/clippy_lints/src/matches/match_on_vec_items.rs",
         "rust/src/tools/clippy/clippy_lints/src/matches/match_ref_pats.rs",
         "rust/src/tools/clippy/clippy_lints/src/matches/match_same_arms.rs",
         "rust/src/tools/clippy/clippy_lints/src/matches/match_single_binding.rs",
@@ -1486,6 +1575,7 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/methods/suspicious_map.rs",
         "rust/src/tools/clippy/clippy_lints/src/methods/suspicious_splitn.rs",
         "rust/src/tools/clippy/clippy_lints/src/methods/suspicious_to_owned.rs",
+        "rust/src/tools/clippy/clippy_lints/src/methods/swap_with_temporary.rs",
         "rust/src/tools/clippy/clippy_lints/src/methods/type_id_on_box.rs",
         "rust/src/tools/clippy/clippy_lints/src/methods/unbuffered_bytes.rs",
         "rust/src/tools/clippy/clippy_lints/src/methods/uninit_assumed_init.rs",
@@ -1633,6 +1723,7 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/redundant_pub_crate.rs",
         "rust/src/tools/clippy/clippy_lints/src/redundant_slicing.rs",
         "rust/src/tools/clippy/clippy_lints/src/redundant_static_lifetimes.rs",
+        "rust/src/tools/clippy/clippy_lints/src/redundant_test_prefix.rs",
         "rust/src/tools/clippy/clippy_lints/src/redundant_type_annotations.rs",
         "rust/src/tools/clippy/clippy_lints/src/ref_option_ref.rs",
         "rust/src/tools/clippy/clippy_lints/src/ref_patterns.rs",
@@ -1678,13 +1769,9 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/transmute/eager_transmute.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/missing_transmute_annotations.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/mod.rs",
-        "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_float_to_int.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_int_to_bool.rs",
-        "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_int_to_char.rs",
-        "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_int_to_float.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_int_to_non_zero.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_null_to_fn.rs",
-        "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_num_to_bytes.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_ptr_to_ptr.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_ptr_to_ref.rs",
         "rust/src/tools/clippy/clippy_lints/src/transmute/transmute_ref_to_ref.rs",
@@ -1747,18 +1834,6 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_lints/src/utils/author.rs",
         "rust/src/tools/clippy/clippy_lints/src/utils/dump_hir.rs",
         "rust/src/tools/clippy/clippy_lints/src/utils/format_args_collector.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/almost_standard_lint_formulation.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/collapsible_calls.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/interning_defined_symbol.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/invalid_paths.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/lint_without_lint_pass.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/msrv_attr_impl.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/outer_expn_data_pass.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/produce_ice.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/slow_symbol_comparisons.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/unnecessary_def_path.rs",
-        "rust/src/tools/clippy/clippy_lints/src/utils/internal_lints/unsorted_clippy_utils_paths.rs",
         "rust/src/tools/clippy/clippy_lints/src/utils/mod.rs",
         "rust/src/tools/clippy/clippy_lints/src/vec.rs",
         "rust/src/tools/clippy/clippy_lints/src/vec_init_then_push.rs",
@@ -1777,8 +1852,8 @@ rust_bootstrap_library(
     deps = [
         ":arrayvec-0.7.6",
         ":cargo_metadata-0.18.1",
-        ":clippy_config-0.1.87",
-        ":clippy_utils-0.1.87",
+        ":clippy_config-0.1.88",
+        ":clippy_utils-0.1.88",
         ":itertools-0.12.1",
         ":pulldown-cmark-0.11.3",
         ":quine-mc_cluskey-0.2.4",
@@ -1818,7 +1893,7 @@ rust_bootstrap_library(
 )
 
 rust_bootstrap_library(
-    name = "clippy_utils-0.1.87",
+    name = "clippy_utils-0.1.88",
     srcs = [
         "rust/src/tools/clippy/clippy_utils/src/ast_utils/ident_iter.rs",
         "rust/src/tools/clippy/clippy_utils/src/ast_utils/mod.rs",
@@ -1844,7 +1919,7 @@ rust_bootstrap_library(
         "rust/src/tools/clippy/clippy_utils/src/source.rs",
         "rust/src/tools/clippy/clippy_utils/src/str_utils.rs",
         "rust/src/tools/clippy/clippy_utils/src/sugg.rs",
-        "rust/src/tools/clippy/clippy_utils/src/sym_helper.rs",
+        "rust/src/tools/clippy/clippy_utils/src/sym.rs",
         "rust/src/tools/clippy/clippy_utils/src/ty/mod.rs",
         "rust/src/tools/clippy/clippy_utils/src/ty/type_certainty/certainty.rs",
         "rust/src/tools/clippy/clippy_utils/src/ty/type_certainty/mod.rs",
@@ -1944,30 +2019,29 @@ rust_bootstrap_library(
 
 rust_bootstrap_alias(
     name = "compiler_builtins",
-    actual = ":compiler_builtins-0.1.152",
+    actual = ":compiler_builtins-0.1.158",
     visibility = ["PUBLIC"],
 )
 
 crate_download(
-    name = "compiler_builtins-0.1.152.crate",
-    sha256 = "2153cf213eb259361567720ce55f6446f17acd0ccca87fb6dc05360578228a58",
-    strip_prefix = "compiler_builtins-0.1.152",
-    urls = ["https://static.crates.io/crates/compiler_builtins/0.1.152/download"],
+    name = "compiler_builtins-0.1.158.crate",
+    sha256 = "164cdc689e4c6d69417f77a5f48be240c291e84fbef0b1281755dc754b19c809",
+    strip_prefix = "compiler_builtins-0.1.158",
+    urls = ["https://static.crates.io/crates/compiler_builtins/0.1.158/download"],
     visibility = [],
 )
 
 rust_bootstrap_library(
-    name = "compiler_builtins-0.1.152",
-    srcs = [":compiler_builtins-0.1.152.crate"],
+    name = "compiler_builtins-0.1.158",
+    srcs = [":compiler_builtins-0.1.158.crate"],
     crate = "compiler_builtins",
-    crate_root = "compiler_builtins-0.1.152.crate/src/lib.rs",
+    crate_root = "compiler_builtins-0.1.158.crate/src/lib.rs",
     edition = "2021",
     env = {
-        "OUT_DIR": "$(location :compiler_builtins-0.1.152-build-script-run[out_dir])",
+        "OUT_DIR": "$(location :compiler_builtins-0.1.158-build-script-run[out_dir])",
     },
     features = [
         "compiler-builtins",
-        "core",
         "default",
         "rustc-dep-of-std",
     ],
@@ -1976,20 +2050,19 @@ rust_bootstrap_library(
     },
     rustc_flags = [
         "-Ccodegen-units=10000",
-        "@$(location :compiler_builtins-0.1.152-build-script-run[rustc_flags])",
+        "@$(location :compiler_builtins-0.1.158-build-script-run[rustc_flags])",
     ],
     visibility = [],
 )
 
 rust_bootstrap_binary(
-    name = "compiler_builtins-0.1.152-build-script-build",
-    srcs = [":compiler_builtins-0.1.152.crate"],
+    name = "compiler_builtins-0.1.158-build-script-build",
+    srcs = [":compiler_builtins-0.1.158.crate"],
     crate = "build_script_build",
-    crate_root = "compiler_builtins-0.1.152.crate/build.rs",
+    crate_root = "compiler_builtins-0.1.158.crate/build.rs",
     edition = "2021",
     features = [
         "compiler-builtins",
-        "core",
         "default",
         "rustc-dep-of-std",
     ],
@@ -1997,19 +2070,18 @@ rust_bootstrap_binary(
 )
 
 rust_bootstrap_buildscript_run(
-    name = "compiler_builtins-0.1.152-build-script-run",
+    name = "compiler_builtins-0.1.158-build-script-run",
     package_name = "compiler_builtins",
-    buildscript_rule = ":compiler_builtins-0.1.152-build-script-build",
+    buildscript_rule = ":compiler_builtins-0.1.158-build-script-build",
     env = {
         "OPT_LEVEL": "3",
     },
     features = [
         "compiler-builtins",
-        "core",
         "default",
         "rustc-dep-of-std",
     ],
-    version = "0.1.152",
+    version = "0.1.158",
 )
 
 crate_download(
@@ -2047,6 +2119,7 @@ rust_bootstrap_library(
         "rust/library/core/src/array/drain.rs",
         "rust/library/core/src/array/equality.rs",
         "rust/library/core/src/array/iter.rs",
+        "rust/library/core/src/array/iter/iter_inner.rs",
         "rust/library/core/src/array/mod.rs",
         "rust/library/core/src/ascii.rs",
         "rust/library/core/src/ascii/ascii_char.rs",
@@ -2056,7 +2129,8 @@ rust_bootstrap_library(
         "rust/library/core/src/async_iter/mod.rs",
         "rust/library/core/src/bool.rs",
         "rust/library/core/src/borrow.rs",
-        "rust/library/core/src/bstr.rs",
+        "rust/library/core/src/bstr/mod.rs",
+        "rust/library/core/src/bstr/traits.rs",
         "rust/library/core/src/cell.rs",
         "rust/library/core/src/cell/lazy.rs",
         "rust/library/core/src/cell/once.rs",
@@ -2247,6 +2321,7 @@ rust_bootstrap_library(
         "rust/library/core/src/panicking.rs",
         "rust/library/core/src/pat.rs",
         "rust/library/core/src/pin.rs",
+        "rust/library/core/src/pin/unsafe_pinned.rs",
         "rust/library/core/src/prelude/mod.rs",
         "rust/library/core/src/prelude/v1.rs",
         "rust/library/core/src/primitive.rs",
@@ -2821,29 +2896,6 @@ rust_bootstrap_library(
     crate_root = "datafrog-2.0.1.crate/src/lib.rs",
     edition = "2018",
     visibility = [],
-)
-
-crate_download(
-    name = "deranged-0.4.0.crate",
-    sha256 = "9c9e6a11ca8224451684bc0d7d5a7adbf8f2fd6887261a1cfc3c0432f9d4068e",
-    strip_prefix = "deranged-0.4.0",
-    urls = ["https://static.crates.io/crates/deranged/0.4.0/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "deranged-0.4.0",
-    srcs = [":deranged-0.4.0.crate"],
-    crate = "deranged",
-    crate_root = "deranged-0.4.0.crate/src/lib.rs",
-    edition = "2021",
-    features = [
-        "alloc",
-        "powerfmt",
-        "std",
-    ],
-    visibility = [],
-    deps = [":powerfmt-0.2.0"],
 )
 
 crate_download(
@@ -3453,7 +3505,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-compiler": dict(
             features = [
@@ -3476,7 +3528,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-compiler": dict(
             features = [
@@ -3499,7 +3551,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-compiler": dict(
             features = [
@@ -3522,7 +3574,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-compiler": dict(
             features = [
@@ -3545,7 +3597,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-compiler": dict(
             features = [
@@ -3629,7 +3681,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-compiler": dict(
             features = [
@@ -3657,7 +3709,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-compiler": dict(
             features = [
@@ -3685,7 +3737,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-compiler": dict(
             features = [
@@ -3713,7 +3765,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-compiler": dict(
             features = [
@@ -3741,7 +3793,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-compiler": dict(
             features = [
@@ -3769,7 +3821,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
     },
     rustc_flags = select({
@@ -4330,6 +4382,27 @@ rust_bootstrap_library(
     crate = "itoa",
     crate_root = "itoa-1.0.15.crate/src/lib.rs",
     edition = "2018",
+    visibility = [],
+)
+
+crate_download(
+    name = "jiff-0.2.15.crate",
+    sha256 = "be1f93b8b1eb69c77f24bbb0afdf66f54b632ee39af40ca21c4365a1d7347e49",
+    strip_prefix = "jiff-0.2.15",
+    urls = ["https://static.crates.io/crates/jiff/0.2.15/download"],
+    visibility = [],
+)
+
+rust_bootstrap_library(
+    name = "jiff-0.2.15",
+    srcs = [":jiff-0.2.15.crate"],
+    crate = "jiff",
+    crate_root = "jiff-0.2.15.crate/src/lib.rs",
+    edition = "2021",
+    features = [
+        "alloc",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -4948,7 +5021,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-compiler": dict(
             features = [
@@ -4966,7 +5039,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-compiler": dict(
             features = [
@@ -4984,7 +5057,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-compiler": dict(
             features = [
@@ -5002,7 +5075,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-compiler": dict(
             features = [
@@ -5020,7 +5093,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-compiler": dict(
             features = [
@@ -5062,78 +5135,6 @@ rust_bootstrap_library(
         ),
     },
     visibility = [],
-)
-
-crate_download(
-    name = "mime-0.3.17.crate",
-    sha256 = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a",
-    strip_prefix = "mime-0.3.17",
-    urls = ["https://static.crates.io/crates/mime/0.3.17/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "mime-0.3.17",
-    srcs = [":mime-0.3.17.crate"],
-    crate = "mime",
-    crate_root = "mime-0.3.17.crate/src/lib.rs",
-    edition = "2015",
-    visibility = [],
-)
-
-crate_download(
-    name = "mime_guess-2.0.5.crate",
-    sha256 = "f7c44f8e672c00fe5308fa235f821cb4198414e1c77935c1ab6948d3fd78550e",
-    strip_prefix = "mime_guess-2.0.5",
-    urls = ["https://static.crates.io/crates/mime_guess/2.0.5/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "mime_guess-2.0.5",
-    srcs = [":mime_guess-2.0.5.crate"],
-    crate = "mime_guess",
-    crate_root = "mime_guess-2.0.5.crate/src/lib.rs",
-    edition = "2015",
-    env = {
-        "MIME_TYPES_GENERATED_PATH": "$(location :mime_guess-2.0.5-build-script-run[out_dir])/mime_types_generated.rs",
-        "OUT_DIR": "$(location :mime_guess-2.0.5-build-script-run[out_dir])",
-    },
-    features = [
-        "default",
-        "rev-mappings",
-    ],
-    rustc_flags = ["@$(location :mime_guess-2.0.5-build-script-run[rustc_flags])"],
-    visibility = [],
-    deps = [
-        ":mime-0.3.17",
-        ":unicase-2.8.1",
-    ],
-)
-
-rust_bootstrap_binary(
-    name = "mime_guess-2.0.5-build-script-build",
-    srcs = [":mime_guess-2.0.5.crate"],
-    crate = "build_script_build",
-    crate_root = "mime_guess-2.0.5.crate/build.rs",
-    edition = "2015",
-    features = [
-        "default",
-        "rev-mappings",
-    ],
-    visibility = [],
-    deps = [":unicase-2.8.1"],
-)
-
-rust_bootstrap_buildscript_run(
-    name = "mime_guess-2.0.5-build-script-run",
-    package_name = "mime_guess",
-    buildscript_rule = ":mime_guess-2.0.5-build-script-build",
-    features = [
-        "default",
-        "rev-mappings",
-    ],
-    version = "2.0.5",
 )
 
 crate_download(
@@ -5200,7 +5201,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-compiler": dict(
             features = ["with-alloc"],
@@ -5216,7 +5217,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-compiler": dict(
             features = ["with-alloc"],
@@ -5232,7 +5233,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-compiler": dict(
             features = ["with-alloc"],
@@ -5248,7 +5249,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-compiler": dict(
             features = ["with-alloc"],
@@ -5264,7 +5265,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-compiler": dict(
             features = ["with-alloc"],
@@ -5414,23 +5415,6 @@ rust_bootstrap_library(
 )
 
 crate_download(
-    name = "num-conv-0.1.0.crate",
-    sha256 = "51d515d32fb182ee37cda2ccdcb92950d6a3c2893aa280e540671c2cd0f3b1d9",
-    strip_prefix = "num-conv-0.1.0",
-    urls = ["https://static.crates.io/crates/num-conv/0.1.0/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "num-conv-0.1.0",
-    srcs = [":num-conv-0.1.0.crate"],
-    crate = "num_conv",
-    crate_root = "num-conv-0.1.0.crate/src/lib.rs",
-    edition = "2021",
-    visibility = [],
-)
-
-crate_download(
     name = "num_cpus-1.17.0.crate",
     sha256 = "91df4bbde75afed763b708b7eee1e8e7651e02d97f6d5dd763e89367e957b23b",
     strip_prefix = "num_cpus-1.17.0",
@@ -5519,7 +5503,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-compiler": dict(
             features = [
@@ -5552,7 +5536,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-compiler": dict(
             features = [
@@ -5585,7 +5569,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-compiler": dict(
             features = [
@@ -5618,7 +5602,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-compiler": dict(
             features = [
@@ -5651,7 +5635,7 @@ rust_bootstrap_library(
                 "alloc": ":rustc-std-workspace-alloc-1.99.0",
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-compiler": dict(
             features = [
@@ -6056,7 +6040,7 @@ rust_bootstrap_library(
     deps = [
         ":alloc-0.0.0",
         ":cfg-if-1.0.0",
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
         ":core-0.0.0",
     ],
 )
@@ -6102,7 +6086,7 @@ rust_bootstrap_library(
     deps = [
         ":alloc-0.0.0",
         ":cfg-if-1.0.0",
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
         ":core-0.0.0",
         ":unwind-0.0.0",
     ],
@@ -6306,23 +6290,6 @@ rust_bootstrap_library(
 )
 
 crate_download(
-    name = "powerfmt-0.2.0.crate",
-    sha256 = "439ee305def115ba05938db6eb1644ff94165c5ab5e9420d1c1bcedbba909391",
-    strip_prefix = "powerfmt-0.2.0",
-    urls = ["https://static.crates.io/crates/powerfmt/0.2.0/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "powerfmt-0.2.0",
-    srcs = [":powerfmt-0.2.0.crate"],
-    crate = "powerfmt",
-    crate_root = "powerfmt-0.2.0.crate/src/lib.rs",
-    edition = "2021",
-    visibility = [],
-)
-
-crate_download(
     name = "ppv-lite86-0.2.21.crate",
     sha256 = "85eae3c4ed2f50dcfe72643da4befc30deadb458a9b590d720cde2f2b1e97da9",
     strip_prefix = "ppv-lite86-0.2.21",
@@ -6444,6 +6411,7 @@ rust_bootstrap_library(
     visibility = [],
     deps = [
         ":core-0.0.0",
+        ":rustc-literal-escaper-0.0.2",
         ":std-0.0.0",
     ],
 )
@@ -6569,28 +6537,6 @@ rust_bootstrap_library(
         ":bitflags-2.9.2",
         ":memchr-2.7.4",
         ":pulldown-cmark-escape-0.11.0",
-        ":unicase-2.8.1",
-    ],
-)
-
-crate_download(
-    name = "pulldown-cmark-0.9.6.crate",
-    sha256 = "57206b407293d2bcd3af849ce869d52068623f19e1b5ff8e8778e3309439682b",
-    strip_prefix = "pulldown-cmark-0.9.6",
-    urls = ["https://static.crates.io/crates/pulldown-cmark/0.9.6/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "pulldown-cmark-0.9.6",
-    srcs = [":pulldown-cmark-0.9.6.crate"],
-    crate = "pulldown_cmark",
-    crate_root = "pulldown-cmark-0.9.6.crate/src/lib.rs",
-    edition = "2021",
-    visibility = [],
-    deps = [
-        ":bitflags-2.9.2",
-        ":memchr-2.7.4",
         ":unicase-2.8.1",
     ],
 )
@@ -7039,84 +6985,6 @@ rust_bootstrap_library(
 )
 
 crate_download(
-    name = "rinja-0.3.5.crate",
-    sha256 = "3dc4940d00595430b3d7d5a01f6222b5e5b51395d1120bdb28d854bb8abb17a5",
-    strip_prefix = "rinja-0.3.5",
-    urls = ["https://static.crates.io/crates/rinja/0.3.5/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "rinja-0.3.5",
-    srcs = [":rinja-0.3.5.crate"],
-    crate = "rinja",
-    crate_root = "rinja-0.3.5.crate/src/lib.rs",
-    edition = "2021",
-    features = ["config"],
-    visibility = [],
-    deps = [
-        ":itoa-1.0.15",
-        ":rinja_derive-0.3.5",
-    ],
-)
-
-crate_download(
-    name = "rinja_derive-0.3.5.crate",
-    sha256 = "08d9ed0146aef6e2825f1b1515f074510549efba38d71f4554eec32eb36ba18b",
-    strip_prefix = "rinja_derive-0.3.5",
-    urls = ["https://static.crates.io/crates/rinja_derive/0.3.5/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "rinja_derive-0.3.5",
-    srcs = [":rinja_derive-0.3.5.crate"],
-    crate = "rinja_derive",
-    crate_root = "rinja_derive-0.3.5.crate/src/lib.rs",
-    edition = "2021",
-    features = ["config"],
-    named_deps = {
-        "parser": ":rinja_parser-0.3.5",
-    },
-    proc_macro = True,
-    visibility = [],
-    deps = [
-        ":basic-toml-0.1.10",
-        ":memchr-2.7.4",
-        ":mime-0.3.17",
-        ":mime_guess-2.0.5",
-        ":proc-macro2-1.0.101",
-        ":quote-1.0.40",
-        ":rustc-hash-2.1.1",
-        ":serde-1.0.219",
-        ":syn-2.0.106",
-    ],
-)
-
-crate_download(
-    name = "rinja_parser-0.3.5.crate",
-    sha256 = "93f9a866e2e00a7a1fb27e46e9e324a6f7c0e7edc4543cae1d38f4e4a100c610",
-    strip_prefix = "rinja_parser-0.3.5",
-    urls = ["https://static.crates.io/crates/rinja_parser/0.3.5/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "rinja_parser-0.3.5",
-    srcs = [":rinja_parser-0.3.5.crate"],
-    crate = "rinja_parser",
-    crate_root = "rinja_parser-0.3.5.crate/src/lib.rs",
-    edition = "2021",
-    features = ["config"],
-    visibility = [],
-    deps = [
-        ":memchr-2.7.4",
-        ":nom-7.1.3",
-        ":serde-1.0.219",
-    ],
-)
-
-crate_download(
     name = "rustc-demangle-0.1.24.crate",
     sha256 = "719b953e2095829ee67db738b3bfa9fa368c94900df327b3f07fe6e794d2fe1f",
     strip_prefix = "rustc-demangle-0.1.24",
@@ -7140,7 +7008,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-library": dict(
             features = [
@@ -7151,7 +7019,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-library": dict(
             features = [
@@ -7162,7 +7030,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-library": dict(
             features = [
@@ -7173,7 +7041,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-library": dict(
             features = [
@@ -7184,7 +7052,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-library": dict(
             features = [
@@ -7195,7 +7063,7 @@ rust_bootstrap_library(
             named_deps = {
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
     },
     visibility = [],
@@ -7243,6 +7111,61 @@ rust_bootstrap_library(
     visibility = [],
 )
 
+crate_download(
+    name = "rustc-literal-escaper-0.0.2.crate",
+    sha256 = "0041b6238913c41fe704213a4a9329e2f685a156d1781998128b4149c230ad04",
+    strip_prefix = "rustc-literal-escaper-0.0.2",
+    urls = ["https://static.crates.io/crates/rustc-literal-escaper/0.0.2/download"],
+    visibility = [],
+)
+
+rust_bootstrap_library(
+    name = "rustc-literal-escaper-0.0.2",
+    srcs = [":rustc-literal-escaper-0.0.2.crate"],
+    crate = "rustc_literal_escaper",
+    crate_root = "rustc-literal-escaper-0.0.2.crate/src/lib.rs",
+    edition = "2021",
+    platform = {
+        "linux-arm64-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+        "linux-x86_64-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+        "macos-arm64-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+        "macos-x86_64-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+        "windows-gnu-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+        "windows-msvc-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+    },
+    visibility = [],
+)
+
 rust_bootstrap_alias(
     name = "rustc-main-rustc-main",
     actual = ":rustc-main-0.0.0-rustc-main",
@@ -7266,29 +7189,6 @@ rust_bootstrap_binary(
         ":rustc_driver_impl-0.0.0",
         ":rustc_smir-0.0.0",
         ":stable_mir-0.1.0-preview",
-    ],
-)
-
-crate_download(
-    name = "rustc-rayon-0.5.1.crate",
-    sha256 = "2cd9fb077db982d7ceb42a90471e5a69a990b58f71e06f0d8340bb2cf35eb751",
-    strip_prefix = "rustc-rayon-0.5.1",
-    urls = ["https://static.crates.io/crates/rustc-rayon/0.5.1/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "rustc-rayon-0.5.1",
-    srcs = [":rustc-rayon-0.5.1.crate"],
-    crate = "rayon",
-    crate_root = "rustc-rayon-0.5.1.crate/src/lib.rs",
-    edition = "2021",
-    features = ["indexmap"],
-    visibility = [],
-    deps = [
-        ":either-1.15.0",
-        ":indexmap-2.10.0",
-        ":rustc-rayon-core-0.5.1",
     ],
 )
 
@@ -7466,10 +7366,10 @@ rust_bootstrap_library(
     deps = [
         ":bitflags-2.9.2",
         ":memchr-2.7.4",
+        ":rustc-literal-escaper-0.0.2",
         ":rustc_ast_ir-0.0.0",
         ":rustc_data_structures-0.0.0",
         ":rustc_index-0.0.0",
-        ":rustc_lexer-0.0.0",
         ":rustc_macros-0.0.0",
         ":rustc_serialize-0.0.0",
         ":rustc_span-0.0.0",
@@ -7632,7 +7532,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_attr_parsing/src/attributes/deprecation.rs",
         "rust/compiler/rustc_attr_parsing/src/attributes/mod.rs",
         "rust/compiler/rustc_attr_parsing/src/attributes/repr.rs",
-        "rust/compiler/rustc_attr_parsing/src/attributes/rustc.rs",
         "rust/compiler/rustc_attr_parsing/src/attributes/stability.rs",
         "rust/compiler/rustc_attr_parsing/src/attributes/transparency.rs",
         "rust/compiler/rustc_attr_parsing/src/attributes/util.rs",
@@ -7713,7 +7612,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_borrowck/src/lib.rs",
         "rust/compiler/rustc_borrowck/src/member_constraints.rs",
         "rust/compiler/rustc_borrowck/src/nll.rs",
-        "rust/compiler/rustc_borrowck/src/opaque_types.rs",
         "rust/compiler/rustc_borrowck/src/path_utils.rs",
         "rust/compiler/rustc_borrowck/src/place_ext.rs",
         "rust/compiler/rustc_borrowck/src/places_conflict.rs",
@@ -7737,6 +7635,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_borrowck/src/region_infer/reverse_sccs.rs",
         "rust/compiler/rustc_borrowck/src/region_infer/values.rs",
         "rust/compiler/rustc_borrowck/src/renumber.rs",
+        "rust/compiler/rustc_borrowck/src/root_cx.rs",
         "rust/compiler/rustc_borrowck/src/session_diagnostics.rs",
         "rust/compiler/rustc_borrowck/src/type_check/canonical.rs",
         "rust/compiler/rustc_borrowck/src/type_check/constraint_conversion.rs",
@@ -7884,6 +7783,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_codegen_llvm/src/coverageinfo/mapgen.rs",
         "rust/compiler/rustc_codegen_llvm/src/coverageinfo/mapgen/covfun.rs",
         "rust/compiler/rustc_codegen_llvm/src/coverageinfo/mapgen/spans.rs",
+        "rust/compiler/rustc_codegen_llvm/src/coverageinfo/mapgen/unused.rs",
         "rust/compiler/rustc_codegen_llvm/src/coverageinfo/mod.rs",
         "rust/compiler/rustc_codegen_llvm/src/debuginfo/create_scope_map.rs",
         "rust/compiler/rustc_codegen_llvm/src/debuginfo/doc.md",
@@ -8171,10 +8071,10 @@ rust_bootstrap_library(
         "rust/compiler/rustc_data_structures/src/fx.rs",
         "rust/compiler/rustc_data_structures/src/graph/dominators/mod.rs",
         "rust/compiler/rustc_data_structures/src/graph/dominators/tests.rs",
-        "rust/compiler/rustc_data_structures/src/graph/implementation/mod.rs",
-        "rust/compiler/rustc_data_structures/src/graph/implementation/tests.rs",
         "rust/compiler/rustc_data_structures/src/graph/iterate/mod.rs",
         "rust/compiler/rustc_data_structures/src/graph/iterate/tests.rs",
+        "rust/compiler/rustc_data_structures/src/graph/linked_graph/mod.rs",
+        "rust/compiler/rustc_data_structures/src/graph/linked_graph/tests.rs",
         "rust/compiler/rustc_data_structures/src/graph/mod.rs",
         "rust/compiler/rustc_data_structures/src/graph/reference.rs",
         "rust/compiler/rustc_data_structures/src/graph/reversed.rs",
@@ -8272,7 +8172,7 @@ rust_bootstrap_library(
         ":memmap2-0.2.3",
         ":parking_lot-0.12.4",
         ":rustc-hash-2.1.1",
-        ":rustc-rayon-0.5.1",
+        ":rustc-rayon-core-0.5.1",
         ":rustc-stable-hash-0.1.2",
         ":rustc_arena-0.0.0",
         ":rustc_graphviz-0.0.0",
@@ -8325,6 +8225,7 @@ rust_bootstrap_library(
     visibility = [],
     deps = [
         ":ctrlc-3.4.7",
+        ":jiff-0.2.15",
         ":rustc_abi-0.0.0",
         ":rustc_ast-0.0.0",
         ":rustc_ast_lowering-0.0.0",
@@ -8363,14 +8264,13 @@ rust_bootstrap_library(
         ":rustc_query_system-0.0.0",
         ":rustc_resolve-0.0.0",
         ":rustc_session-0.0.0",
-        ":rustc_smir-0.0.0",
         ":rustc_span-0.0.0",
         ":rustc_target-0.0.0",
         ":rustc_trait_selection-0.0.0",
         ":rustc_ty_utils-0.0.0",
         ":serde_json-1.0.143",
         ":shlex-1.3.0",
-        ":time-0.3.41",
+        ":stable_mir-0.1.0-preview",
         ":tracing-0.1.37",
     ],
 )
@@ -9089,6 +8989,7 @@ rust_bootstrap_library(
     crate_root = "rust/compiler/rustc_fs_util/src/lib.rs",
     edition = "2024",
     visibility = [],
+    deps = [":tempfile-3.21.0"],
 )
 
 rust_bootstrap_library(
@@ -9166,7 +9067,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_hir_analysis/src/check/compare_impl_item/refine.rs",
         "rust/compiler/rustc_hir_analysis/src/check/entry.rs",
         "rust/compiler/rustc_hir_analysis/src/check/intrinsic.rs",
-        "rust/compiler/rustc_hir_analysis/src/check/intrinsicck.rs",
         "rust/compiler/rustc_hir_analysis/src/check/mod.rs",
         "rust/compiler/rustc_hir_analysis/src/check/region.rs",
         "rust/compiler/rustc_hir_analysis/src/check/wfcheck.rs",
@@ -9234,7 +9134,6 @@ rust_bootstrap_library(
         ":rustc_middle-0.0.0",
         ":rustc_session-0.0.0",
         ":rustc_span-0.0.0",
-        ":rustc_target-0.0.0",
         ":rustc_trait_selection-0.0.0",
         ":smallvec-1.15.1",
         ":tracing-0.1.37",
@@ -9283,6 +9182,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_hir_typeck/src/fn_ctxt/mod.rs",
         "rust/compiler/rustc_hir_typeck/src/fn_ctxt/suggestions.rs",
         "rust/compiler/rustc_hir_typeck/src/gather_locals.rs",
+        "rust/compiler/rustc_hir_typeck/src/inline_asm.rs",
         "rust/compiler/rustc_hir_typeck/src/intrinsicck.rs",
         "rust/compiler/rustc_hir_typeck/src/lib.rs",
         "rust/compiler/rustc_hir_typeck/src/method/confirm.rs",
@@ -9291,6 +9191,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_hir_typeck/src/method/probe.rs",
         "rust/compiler/rustc_hir_typeck/src/method/suggest.rs",
         "rust/compiler/rustc_hir_typeck/src/op.rs",
+        "rust/compiler/rustc_hir_typeck/src/opaque_types.rs",
         "rust/compiler/rustc_hir_typeck/src/pat.rs",
         "rust/compiler/rustc_hir_typeck/src/place_op.rs",
         "rust/compiler/rustc_hir_typeck/src/rvalue_scopes.rs",
@@ -9320,6 +9221,7 @@ rust_bootstrap_library(
         ":rustc_middle-0.0.0",
         ":rustc_session-0.0.0",
         ":rustc_span-0.0.0",
+        ":rustc_target-0.0.0",
         ":rustc_trait_selection-0.0.0",
         ":smallvec-1.15.1",
         ":tracing-0.1.37",
@@ -9500,7 +9402,6 @@ rust_bootstrap_library(
     features = ["llvm"],
     visibility = [],
     deps = [
-        ":rustc-rayon-0.5.1",
         ":rustc-rayon-core-0.5.1",
         ":rustc_ast-0.0.0",
         ":rustc_ast_lowering-0.0.0",
@@ -9552,8 +9453,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_lexer/src/cursor.rs",
         "rust/compiler/rustc_lexer/src/lib.rs",
         "rust/compiler/rustc_lexer/src/tests.rs",
-        "rust/compiler/rustc_lexer/src/unescape.rs",
-        "rust/compiler/rustc_lexer/src/unescape/tests.rs",
     ],
     crate = "rustc_lexer",
     crate_root = "rust/compiler/rustc_lexer/src/lib.rs",
@@ -9571,6 +9470,7 @@ rust_bootstrap_library(
     srcs = [
         "rust/compiler/rustc_lint/src/async_closures.rs",
         "rust/compiler/rustc_lint/src/async_fn_in_trait.rs",
+        "rust/compiler/rustc_lint/src/autorefs.rs",
         "rust/compiler/rustc_lint/src/builtin.rs",
         "rust/compiler/rustc_lint/src/context.rs",
         "rust/compiler/rustc_lint/src/dangling.rs",
@@ -9621,6 +9521,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_lint/src/unit_bindings.rs",
         "rust/compiler/rustc_lint/src/unqualified_local_imports.rs",
         "rust/compiler/rustc_lint/src/unused.rs",
+        "rust/compiler/rustc_lint/src/utils.rs",
     ],
     crate = "rustc_lint",
     crate_root = "rust/compiler/rustc_lint/src/lib.rs",
@@ -9899,7 +9800,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_middle/src/ty/erase_regions.rs",
         "rust/compiler/rustc_middle/src/ty/error.rs",
         "rust/compiler/rustc_middle/src/ty/fast_reject.rs",
-        "rust/compiler/rustc_middle/src/ty/flags.rs",
         "rust/compiler/rustc_middle/src/ty/fold.rs",
         "rust/compiler/rustc_middle/src/ty/generic_args.rs",
         "rust/compiler/rustc_middle/src/ty/generics.rs",
@@ -9929,7 +9829,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_middle/src/ty/util.rs",
         "rust/compiler/rustc_middle/src/ty/visit.rs",
         "rust/compiler/rustc_middle/src/ty/vtable.rs",
-        "rust/compiler/rustc_middle/src/ty/walk.rs",
         "rust/compiler/rustc_middle/src/util/bug.rs",
         "rust/compiler/rustc_middle/src/util/mod.rs",
         "rust/compiler/rustc_middle/src/values.rs",
@@ -10112,10 +10011,12 @@ rust_bootstrap_library(
         "rust/compiler/rustc_mir_transform/src/check_packed_ref.rs",
         "rust/compiler/rustc_mir_transform/src/check_pointers.rs",
         "rust/compiler/rustc_mir_transform/src/check_undefined_transmutes.rs",
+        "rust/compiler/rustc_mir_transform/src/check_unnecessary_transmutes.rs",
         "rust/compiler/rustc_mir_transform/src/cleanup_post_borrowck.rs",
         "rust/compiler/rustc_mir_transform/src/copy_prop.rs",
         "rust/compiler/rustc_mir_transform/src/coroutine.rs",
         "rust/compiler/rustc_mir_transform/src/coroutine/by_move_body.rs",
+        "rust/compiler/rustc_mir_transform/src/coroutine/drop.rs",
         "rust/compiler/rustc_mir_transform/src/cost_checker.rs",
         "rust/compiler/rustc_mir_transform/src/coverage/counters.rs",
         "rust/compiler/rustc_mir_transform/src/coverage/counters/balanced_flow.rs",
@@ -10278,10 +10179,10 @@ rust_bootstrap_library(
         "rust/compiler/rustc_next_trait_solver/src/solve/inspect/mod.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/mod.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/normalizes_to/anon_const.rs",
+        "rust/compiler/rustc_next_trait_solver/src/solve/normalizes_to/free_alias.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/normalizes_to/inherent.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/normalizes_to/mod.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/normalizes_to/opaque_types.rs",
-        "rust/compiler/rustc_next_trait_solver/src/solve/normalizes_to/weak_types.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/project_goals.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/search_graph.rs",
         "rust/compiler/rustc_next_trait_solver/src/solve/trait_goals.rs",
@@ -10299,7 +10200,6 @@ rust_bootstrap_library(
         ":rustc_data_structures-0.0.0",
         ":rustc_index-0.0.0",
         ":rustc_macros-0.0.0",
-        ":rustc_serialize-0.0.0",
         ":rustc_type_ir-0.0.0",
         ":rustc_type_ir_macros-0.0.0",
         ":tracing-0.1.37",
@@ -10323,7 +10223,6 @@ rust_bootstrap_library(
         "rust/compiler/rustc_parse/src/parser/generics.rs",
         "rust/compiler/rustc_parse/src/parser/item.rs",
         "rust/compiler/rustc_parse/src/parser/mod.rs",
-        "rust/compiler/rustc_parse/src/parser/mut_visit/tests.rs",
         "rust/compiler/rustc_parse/src/parser/nonterminal.rs",
         "rust/compiler/rustc_parse/src/parser/pat.rs",
         "rust/compiler/rustc_parse/src/parser/path.rs",
@@ -10340,6 +10239,7 @@ rust_bootstrap_library(
     visibility = [],
     deps = [
         ":bitflags-2.9.2",
+        ":rustc-literal-escaper-0.0.2",
         ":rustc_ast-0.0.0",
         ":rustc_ast_pretty-0.0.0",
         ":rustc_data_structures-0.0.0",
@@ -10368,7 +10268,10 @@ rust_bootstrap_library(
     crate_root = "rust/compiler/rustc_parse_format/src/lib.rs",
     edition = "2024",
     visibility = [],
-    deps = [":rustc_lexer-0.0.0"],
+    deps = [
+        ":rustc-literal-escaper-0.0.2",
+        ":rustc_lexer-0.0.0",
+    ],
 )
 
 rust_bootstrap_library(
@@ -10376,6 +10279,7 @@ rust_bootstrap_library(
     srcs = [
         "rust/compiler/rustc_passes/src/abi_test.rs",
         "rust/compiler/rustc_passes/src/check_attr.rs",
+        "rust/compiler/rustc_passes/src/check_export.rs",
         "rust/compiler/rustc_passes/src/dead.rs",
         "rust/compiler/rustc_passes/src/debugger_visualizer.rs",
         "rust/compiler/rustc_passes/src/diagnostic_items.rs",
@@ -10601,7 +10505,6 @@ rust_bootstrap_library(
         ":rustc_feature-0.0.0",
         ":rustc_fluent_macro-0.0.0",
         ":rustc_hir-0.0.0",
-        ":rustc_index-0.0.0",
         ":rustc_macros-0.0.0",
         ":rustc_metadata-0.0.0",
         ":rustc_middle-0.0.0",
@@ -10652,6 +10555,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_serialize/src/leb128/tests.rs",
         "rust/compiler/rustc_serialize/src/lib.rs",
         "rust/compiler/rustc_serialize/src/opaque.rs",
+        "rust/compiler/rustc_serialize/src/opaque/mem_encoder.rs",
         "rust/compiler/rustc_serialize/src/opaque/tests.rs",
         "rust/compiler/rustc_serialize/src/serialize.rs",
     ],
@@ -10673,6 +10577,8 @@ rust_bootstrap_library(
         "rust/compiler/rustc_session/src/code_stats.rs",
         "rust/compiler/rustc_session/src/config.rs",
         "rust/compiler/rustc_session/src/config/cfg.rs",
+        "rust/compiler/rustc_session/src/config/externs.rs",
+        "rust/compiler/rustc_session/src/config/externs/tests.rs",
         "rust/compiler/rustc_session/src/config/native_libs.rs",
         "rust/compiler/rustc_session/src/config/native_libs/tests.rs",
         "rust/compiler/rustc_session/src/config/sigpipe.rs",
@@ -10714,6 +10620,7 @@ rust_bootstrap_library(
     deps = [
         ":bitflags-2.9.2",
         ":getopts-0.2.23",
+        ":rand-0.9.2",
         ":rustc_abi-0.0.0",
         ":rustc_ast-0.0.0",
         ":rustc_data_structures-0.0.0",
@@ -10750,6 +10657,20 @@ rust_bootstrap_library(
         "rust/compiler/rustc_smir/src/rustc_smir/convert/mod.rs",
         "rust/compiler/rustc_smir/src/rustc_smir/convert/ty.rs",
         "rust/compiler/rustc_smir/src/rustc_smir/mod.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/abi.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/compiler_interface.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/crate_def.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/error.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mir.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mir/alloc.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mir/body.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mir/mono.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mir/pretty.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mir/visit.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/mod.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/target.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/ty.rs",
+        "rust/compiler/rustc_smir/src/stable_mir/visitor.rs",
     ],
     crate = "rustc_smir",
     crate_root = "rust/compiler/rustc_smir/src/lib.rs",
@@ -10765,7 +10686,7 @@ rust_bootstrap_library(
         ":rustc_span-0.0.0",
         ":rustc_target-0.0.0",
         ":scoped-tls-1.0.1",
-        ":stable_mir-0.1.0-preview",
+        ":serde-1.0.219",
         ":tracing-0.1.37",
     ],
 )
@@ -10819,6 +10740,7 @@ rust_bootstrap_library(
     name = "rustc_symbol_mangling-0.0.0",
     srcs = [
         "rust/compiler/rustc_symbol_mangling/src/errors.rs",
+        "rust/compiler/rustc_symbol_mangling/src/export.rs",
         "rust/compiler/rustc_symbol_mangling/src/hashed.rs",
         "rust/compiler/rustc_symbol_mangling/src/legacy.rs",
         "rust/compiler/rustc_symbol_mangling/src/lib.rs",
@@ -10916,6 +10838,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_target/src/spec/base/linux_ohos.rs",
         "rust/compiler/rustc_target/src/spec/base/linux_uclibc.rs",
         "rust/compiler/rustc_target/src/spec/base/linux_wasm.rs",
+        "rust/compiler/rustc_target/src/spec/base/lynxos178.rs",
         "rust/compiler/rustc_target/src/spec/base/mod.rs",
         "rust/compiler/rustc_target/src/spec/base/msvc.rs",
         "rust/compiler/rustc_target/src/spec/base/netbsd.rs",
@@ -11188,6 +11111,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_target/src/spec/targets/x86_64_apple_watchos_sim.rs",
         "rust/compiler/rustc_target/src/spec/targets/x86_64_fortanix_unknown_sgx.rs",
         "rust/compiler/rustc_target/src/spec/targets/x86_64_linux_android.rs",
+        "rust/compiler/rustc_target/src/spec/targets/x86_64_lynx_lynxos178.rs",
         "rust/compiler/rustc_target/src/spec/targets/x86_64_pc_cygwin.rs",
         "rust/compiler/rustc_target/src/spec/targets/x86_64_pc_nto_qnx710.rs",
         "rust/compiler/rustc_target/src/spec/targets/x86_64_pc_nto_qnx710_iosock.rs",
@@ -11283,12 +11207,15 @@ rust_bootstrap_library(
         "rust/compiler/rustc_trait_selection/src/error_reporting/traits/fulfillment_errors.rs",
         "rust/compiler/rustc_trait_selection/src/error_reporting/traits/mod.rs",
         "rust/compiler/rustc_trait_selection/src/error_reporting/traits/on_unimplemented.rs",
+        "rust/compiler/rustc_trait_selection/src/error_reporting/traits/on_unimplemented_condition.rs",
+        "rust/compiler/rustc_trait_selection/src/error_reporting/traits/on_unimplemented_format.rs",
         "rust/compiler/rustc_trait_selection/src/error_reporting/traits/overflow.rs",
         "rust/compiler/rustc_trait_selection/src/error_reporting/traits/suggestions.rs",
         "rust/compiler/rustc_trait_selection/src/errors.rs",
         "rust/compiler/rustc_trait_selection/src/errors/note_and_explain.rs",
         "rust/compiler/rustc_trait_selection/src/infer.rs",
         "rust/compiler/rustc_trait_selection/src/lib.rs",
+        "rust/compiler/rustc_trait_selection/src/opaque_types.rs",
         "rust/compiler/rustc_trait_selection/src/regions.rs",
         "rust/compiler/rustc_trait_selection/src/solve.rs",
         "rust/compiler/rustc_trait_selection/src/solve/delegate.rs",
@@ -11341,7 +11268,6 @@ rust_bootstrap_library(
         ":itertools-0.12.1",
         ":rustc_abi-0.0.0",
         ":rustc_ast-0.0.0",
-        ":rustc_attr_parsing-0.0.0",
         ":rustc_data_structures-0.0.0",
         ":rustc_errors-0.0.0",
         ":rustc_fluent_macro-0.0.0",
@@ -11354,7 +11280,6 @@ rust_bootstrap_library(
         ":rustc_session-0.0.0",
         ":rustc_span-0.0.0",
         ":rustc_transmute-0.0.0",
-        ":rustc_type_ir-0.0.0",
         ":smallvec-1.15.1",
         ":thin-vec-0.2.14",
         ":tracing-0.1.37",
@@ -11393,7 +11318,6 @@ rust_bootstrap_library(
     srcs = [
         "rust/compiler/rustc_transmute/src/layout/dfa.rs",
         "rust/compiler/rustc_transmute/src/layout/mod.rs",
-        "rust/compiler/rustc_transmute/src/layout/nfa.rs",
         "rust/compiler/rustc_transmute/src/layout/tree.rs",
         "rust/compiler/rustc_transmute/src/layout/tree/tests.rs",
         "rust/compiler/rustc_transmute/src/lib.rs",
@@ -11412,6 +11336,7 @@ rust_bootstrap_library(
         ":rustc_hir-0.0.0",
         ":rustc_middle-0.0.0",
         ":rustc_span-0.0.0",
+        ":smallvec-1.15.1",
         ":tracing-0.1.37",
     ],
 )
@@ -11430,6 +11355,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_ty_utils/src/layout/invariant.rs",
         "rust/compiler/rustc_ty_utils/src/lib.rs",
         "rust/compiler/rustc_ty_utils/src/needs_drop.rs",
+        "rust/compiler/rustc_ty_utils/src/nested_bodies.rs",
         "rust/compiler/rustc_ty_utils/src/opaque_types.rs",
         "rust/compiler/rustc_ty_utils/src/representability.rs",
         "rust/compiler/rustc_ty_utils/src/sig_types.rs",
@@ -11484,6 +11410,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_type_ir/src/macros.rs",
         "rust/compiler/rustc_type_ir/src/opaque_ty.rs",
         "rust/compiler/rustc_type_ir/src/outlives.rs",
+        "rust/compiler/rustc_type_ir/src/pattern.rs",
         "rust/compiler/rustc_type_ir/src/predicate.rs",
         "rust/compiler/rustc_type_ir/src/predicate_kind.rs",
         "rust/compiler/rustc_type_ir/src/region_kind.rs",
@@ -11499,6 +11426,7 @@ rust_bootstrap_library(
         "rust/compiler/rustc_type_ir/src/ty_kind/closure.rs",
         "rust/compiler/rustc_type_ir/src/upcast.rs",
         "rust/compiler/rustc_type_ir/src/visit.rs",
+        "rust/compiler/rustc_type_ir/src/walk.rs",
     ],
     crate = "rustc_type_ir",
     crate_root = "rust/compiler/rustc_type_ir/src/lib.rs",
@@ -11511,6 +11439,7 @@ rust_bootstrap_library(
     deps = [
         ":bitflags-2.9.2",
         ":derive-where-1.6.0",
+        ":ena-0.14.3",
         ":indexmap-2.10.0",
         ":rustc-hash-1.1.0",
         ":rustc_ast_ir-0.0.0",
@@ -11545,6 +11474,7 @@ rust_bootstrap_library(
 rust_bootstrap_library(
     name = "rustdoc-0.0.0",
     srcs = [
+        "rust/src/librustdoc/askama.toml",
         "rust/src/librustdoc/build.rs",
         "rust/src/librustdoc/clean/auto_trait.rs",
         "rust/src/librustdoc/clean/blanket_impl.rs",
@@ -11677,7 +11607,6 @@ rust_bootstrap_library(
         "rust/src/librustdoc/passes/lint/html_tags.rs",
         "rust/src/librustdoc/passes/lint/redundant_explicit_links.rs",
         "rust/src/librustdoc/passes/lint/unescaped_backticks.rs",
-        "rust/src/librustdoc/passes/lint/unportable_markdown.rs",
         "rust/src/librustdoc/passes/mod.rs",
         "rust/src/librustdoc/passes/propagate_doc_cfg.rs",
         "rust/src/librustdoc/passes/propagate_stability.rs",
@@ -11686,7 +11615,6 @@ rust_bootstrap_library(
         "rust/src/librustdoc/passes/strip_priv_imports.rs",
         "rust/src/librustdoc/passes/strip_private.rs",
         "rust/src/librustdoc/passes/stripper.rs",
-        "rust/src/librustdoc/rinja.toml",
         "rust/src/librustdoc/scrape_examples.rs",
         "rust/src/librustdoc/theme.rs",
         "rust/src/librustdoc/theme/tests.rs",
@@ -11705,14 +11633,12 @@ rust_bootstrap_library(
     mapped_srcs = {
         "fixups/rustdoc/overlay/lib.rs": "rust/src/librustdoc/lib.rs",
     },
-    named_deps = {
-        "pulldown_cmark_old": ":pulldown-cmark-0.9.6",
-    },
     rustc_flags = ["@$(location :rustdoc-0.0.0-build-script-run[rustc_flags])"],
     visibility = [],
     deps = [
         "toolchains//rust:sysroot[test]",
         ":arrayvec-0.7.6",
+        ":askama-0.13.1",
         ":base64-0.21.7",
         ":indexmap-2.10.0",
         ":itertools-0.12.1",
@@ -11720,7 +11646,6 @@ rust_bootstrap_library(
         ":pulldown-cmark-0.11.3",
         ":pulldown-cmark-escape-0.11.0",
         ":regex-1.11.1",
-        ":rinja-0.3.5",
         ":rustc_abi-0.0.0",
         ":rustc_ast-0.0.0",
         ":rustc_ast_pretty-0.0.0",
@@ -11768,6 +11693,7 @@ rust_bootstrap_library(
 rust_bootstrap_binary(
     name = "rustdoc-0.0.0-build-script-build",
     srcs = [
+        "rust/src/librustdoc/askama.toml",
         "rust/src/librustdoc/build.rs",
         "rust/src/librustdoc/clean/auto_trait.rs",
         "rust/src/librustdoc/clean/blanket_impl.rs",
@@ -11900,7 +11826,6 @@ rust_bootstrap_binary(
         "rust/src/librustdoc/passes/lint/html_tags.rs",
         "rust/src/librustdoc/passes/lint/redundant_explicit_links.rs",
         "rust/src/librustdoc/passes/lint/unescaped_backticks.rs",
-        "rust/src/librustdoc/passes/lint/unportable_markdown.rs",
         "rust/src/librustdoc/passes/mod.rs",
         "rust/src/librustdoc/passes/propagate_doc_cfg.rs",
         "rust/src/librustdoc/passes/propagate_stability.rs",
@@ -11909,7 +11834,6 @@ rust_bootstrap_binary(
         "rust/src/librustdoc/passes/strip_priv_imports.rs",
         "rust/src/librustdoc/passes/strip_private.rs",
         "rust/src/librustdoc/passes/stripper.rs",
-        "rust/src/librustdoc/rinja.toml",
         "rust/src/librustdoc/scrape_examples.rs",
         "rust/src/librustdoc/theme.rs",
         "rust/src/librustdoc/theme/tests.rs",
@@ -12319,6 +12243,7 @@ rust_bootstrap_library(
         "OUT_DIR": "$(location :serde_json-1.0.143-build-script-run[out_dir])",
     },
     features = [
+        "alloc",
         "default",
         "std",
         "unbounded_depth",
@@ -12340,6 +12265,7 @@ rust_bootstrap_binary(
     crate_root = "serde_json-1.0.143.crate/build.rs",
     edition = "2021",
     features = [
+        "alloc",
         "default",
         "std",
         "unbounded_depth",
@@ -12352,6 +12278,7 @@ rust_bootstrap_buildscript_run(
     package_name = "serde_json",
     buildscript_rule = ":serde_json-1.0.143-build-script-build",
     features = [
+        "alloc",
         "default",
         "std",
         "unbounded_depth",
@@ -12515,30 +12442,13 @@ rust_bootstrap_library(
 
 rust_bootstrap_library(
     name = "stable_mir-0.1.0-preview",
-    srcs = [
-        "rust/compiler/stable_mir/src/abi.rs",
-        "rust/compiler/stable_mir/src/compiler_interface.rs",
-        "rust/compiler/stable_mir/src/crate_def.rs",
-        "rust/compiler/stable_mir/src/error.rs",
-        "rust/compiler/stable_mir/src/lib.rs",
-        "rust/compiler/stable_mir/src/mir.rs",
-        "rust/compiler/stable_mir/src/mir/alloc.rs",
-        "rust/compiler/stable_mir/src/mir/body.rs",
-        "rust/compiler/stable_mir/src/mir/mono.rs",
-        "rust/compiler/stable_mir/src/mir/pretty.rs",
-        "rust/compiler/stable_mir/src/mir/visit.rs",
-        "rust/compiler/stable_mir/src/target.rs",
-        "rust/compiler/stable_mir/src/ty.rs",
-        "rust/compiler/stable_mir/src/visitor.rs",
-    ],
+    srcs = ["rust/compiler/stable_mir/src/lib.rs"],
     crate = "stable_mir",
     crate_root = "rust/compiler/stable_mir/src/lib.rs",
     edition = "2024",
+    features = ["rustc_internal"],
     visibility = [],
-    deps = [
-        ":scoped-tls-1.0.1",
-        ":serde-1.0.219",
-    ],
+    deps = [":rustc_smir-0.0.0"],
 )
 
 crate_download(
@@ -12936,9 +12846,39 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/anonymous_pipe/unix.rs",
         "rust/library/std/src/sys/anonymous_pipe/unsupported.rs",
         "rust/library/std/src/sys/anonymous_pipe/windows.rs",
+        "rust/library/std/src/sys/args/common.rs",
+        "rust/library/std/src/sys/args/mod.rs",
+        "rust/library/std/src/sys/args/sgx.rs",
+        "rust/library/std/src/sys/args/uefi.rs",
+        "rust/library/std/src/sys/args/unix.rs",
+        "rust/library/std/src/sys/args/unsupported.rs",
+        "rust/library/std/src/sys/args/wasi.rs",
+        "rust/library/std/src/sys/args/windows.rs",
+        "rust/library/std/src/sys/args/windows/tests.rs",
+        "rust/library/std/src/sys/args/xous.rs",
+        "rust/library/std/src/sys/args/zkvm.rs",
         "rust/library/std/src/sys/backtrace.rs",
         "rust/library/std/src/sys/cmath.rs",
+        "rust/library/std/src/sys/env/common.rs",
+        "rust/library/std/src/sys/env/hermit.rs",
+        "rust/library/std/src/sys/env/mod.rs",
+        "rust/library/std/src/sys/env/sgx.rs",
+        "rust/library/std/src/sys/env/solid.rs",
+        "rust/library/std/src/sys/env/uefi.rs",
+        "rust/library/std/src/sys/env/unix.rs",
+        "rust/library/std/src/sys/env/unsupported.rs",
+        "rust/library/std/src/sys/env/wasi.rs",
+        "rust/library/std/src/sys/env/windows.rs",
+        "rust/library/std/src/sys/env/xous.rs",
+        "rust/library/std/src/sys/env/zkvm.rs",
+        "rust/library/std/src/sys/env_consts.rs",
         "rust/library/std/src/sys/exit_guard.rs",
+        "rust/library/std/src/sys/fd/hermit.rs",
+        "rust/library/std/src/sys/fd/mod.rs",
+        "rust/library/std/src/sys/fd/sgx.rs",
+        "rust/library/std/src/sys/fd/unix.rs",
+        "rust/library/std/src/sys/fd/unix/tests.rs",
+        "rust/library/std/src/sys/fd/wasi.rs",
         "rust/library/std/src/sys/fs/common.rs",
         "rust/library/std/src/sys/fs/hermit.rs",
         "rust/library/std/src/sys/fs/mod.rs",
@@ -12984,9 +12924,6 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/common/mod.rs",
         "rust/library/std/src/sys/pal/common/small_c_string.rs",
         "rust/library/std/src/sys/pal/common/tests.rs",
-        "rust/library/std/src/sys/pal/hermit/args.rs",
-        "rust/library/std/src/sys/pal/hermit/env.rs",
-        "rust/library/std/src/sys/pal/hermit/fd.rs",
         "rust/library/std/src/sys/pal/hermit/futex.rs",
         "rust/library/std/src/sys/pal/hermit/mod.rs",
         "rust/library/std/src/sys/pal/hermit/os.rs",
@@ -13013,9 +12950,6 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/sgx/abi/usercalls/mod.rs",
         "rust/library/std/src/sys/pal/sgx/abi/usercalls/raw.rs",
         "rust/library/std/src/sys/pal/sgx/abi/usercalls/tests.rs",
-        "rust/library/std/src/sys/pal/sgx/args.rs",
-        "rust/library/std/src/sys/pal/sgx/env.rs",
-        "rust/library/std/src/sys/pal/sgx/fd.rs",
         "rust/library/std/src/sys/pal/sgx/libunwind_integration.rs",
         "rust/library/std/src/sys/pal/sgx/mod.rs",
         "rust/library/std/src/sys/pal/sgx/os.rs",
@@ -13031,7 +12965,6 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/solid/abi/fs.rs",
         "rust/library/std/src/sys/pal/solid/abi/mod.rs",
         "rust/library/std/src/sys/pal/solid/abi/sockets.rs",
-        "rust/library/std/src/sys/pal/solid/env.rs",
         "rust/library/std/src/sys/pal/solid/error.rs",
         "rust/library/std/src/sys/pal/solid/mod.rs",
         "rust/library/std/src/sys/pal/solid/os.rs",
@@ -13040,18 +12973,12 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/teeos/os.rs",
         "rust/library/std/src/sys/pal/teeos/thread.rs",
         "rust/library/std/src/sys/pal/trusty/mod.rs",
-        "rust/library/std/src/sys/pal/uefi/args.rs",
-        "rust/library/std/src/sys/pal/uefi/env.rs",
         "rust/library/std/src/sys/pal/uefi/helpers.rs",
         "rust/library/std/src/sys/pal/uefi/mod.rs",
         "rust/library/std/src/sys/pal/uefi/os.rs",
         "rust/library/std/src/sys/pal/uefi/tests.rs",
         "rust/library/std/src/sys/pal/uefi/thread.rs",
         "rust/library/std/src/sys/pal/uefi/time.rs",
-        "rust/library/std/src/sys/pal/unix/args.rs",
-        "rust/library/std/src/sys/pal/unix/env.rs",
-        "rust/library/std/src/sys/pal/unix/fd.rs",
-        "rust/library/std/src/sys/pal/unix/fd/tests.rs",
         "rust/library/std/src/sys/pal/unix/fuchsia.rs",
         "rust/library/std/src/sys/pal/unix/futex.rs",
         "rust/library/std/src/sys/pal/unix/kernel_copy.rs",
@@ -13071,17 +12998,12 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/unix/thread_parking.rs",
         "rust/library/std/src/sys/pal/unix/time.rs",
         "rust/library/std/src/sys/pal/unix/weak.rs",
-        "rust/library/std/src/sys/pal/unsupported/args.rs",
         "rust/library/std/src/sys/pal/unsupported/common.rs",
-        "rust/library/std/src/sys/pal/unsupported/env.rs",
         "rust/library/std/src/sys/pal/unsupported/mod.rs",
         "rust/library/std/src/sys/pal/unsupported/os.rs",
         "rust/library/std/src/sys/pal/unsupported/pipe.rs",
         "rust/library/std/src/sys/pal/unsupported/thread.rs",
         "rust/library/std/src/sys/pal/unsupported/time.rs",
-        "rust/library/std/src/sys/pal/wasi/args.rs",
-        "rust/library/std/src/sys/pal/wasi/env.rs",
-        "rust/library/std/src/sys/pal/wasi/fd.rs",
         "rust/library/std/src/sys/pal/wasi/helpers.rs",
         "rust/library/std/src/sys/pal/wasi/mod.rs",
         "rust/library/std/src/sys/pal/wasi/os.rs",
@@ -13091,16 +13013,12 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/wasip2/mod.rs",
         "rust/library/std/src/sys/pal/wasm/atomics/futex.rs",
         "rust/library/std/src/sys/pal/wasm/atomics/thread.rs",
-        "rust/library/std/src/sys/pal/wasm/env.rs",
         "rust/library/std/src/sys/pal/wasm/mod.rs",
         "rust/library/std/src/sys/pal/windows/api.rs",
         "rust/library/std/src/sys/pal/windows/api/tests.rs",
-        "rust/library/std/src/sys/pal/windows/args.rs",
-        "rust/library/std/src/sys/pal/windows/args/tests.rs",
         "rust/library/std/src/sys/pal/windows/c.rs",
         "rust/library/std/src/sys/pal/windows/c/windows_sys.rs",
         "rust/library/std/src/sys/pal/windows/compat.rs",
-        "rust/library/std/src/sys/pal/windows/env.rs",
         "rust/library/std/src/sys/pal/windows/futex.rs",
         "rust/library/std/src/sys/pal/windows/handle.rs",
         "rust/library/std/src/sys/pal/windows/handle/tests.rs",
@@ -13112,7 +13030,6 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/windows/stack_overflow_uwp.rs",
         "rust/library/std/src/sys/pal/windows/thread.rs",
         "rust/library/std/src/sys/pal/windows/time.rs",
-        "rust/library/std/src/sys/pal/xous/args.rs",
         "rust/library/std/src/sys/pal/xous/mod.rs",
         "rust/library/std/src/sys/pal/xous/os.rs",
         "rust/library/std/src/sys/pal/xous/os/params.rs",
@@ -13120,8 +13037,6 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/pal/xous/thread.rs",
         "rust/library/std/src/sys/pal/xous/time.rs",
         "rust/library/std/src/sys/pal/zkvm/abi.rs",
-        "rust/library/std/src/sys/pal/zkvm/args.rs",
-        "rust/library/std/src/sys/pal/zkvm/env.rs",
         "rust/library/std/src/sys/pal/zkvm/mod.rs",
         "rust/library/std/src/sys/pal/zkvm/os.rs",
         "rust/library/std/src/sys/path/mod.rs",
@@ -13137,6 +13052,7 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/personality/emcc.rs",
         "rust/library/std/src/sys/personality/gcc.rs",
         "rust/library/std/src/sys/personality/mod.rs",
+        "rust/library/std/src/sys/process/env.rs",
         "rust/library/std/src/sys/process/mod.rs",
         "rust/library/std/src/sys/process/uefi.rs",
         "rust/library/std/src/sys/process/unix/common.rs",
@@ -13239,10 +13155,9 @@ rust_bootstrap_library(
         "rust/library/std/src/sys/thread_local/native/eager.rs",
         "rust/library/std/src/sys/thread_local/native/lazy.rs",
         "rust/library/std/src/sys/thread_local/native/mod.rs",
+        "rust/library/std/src/sys/thread_local/no_threads.rs",
         "rust/library/std/src/sys/thread_local/os.rs",
-        "rust/library/std/src/sys/thread_local/statik.rs",
         "rust/library/std/src/sys_common/mod.rs",
-        "rust/library/std/src/sys_common/process.rs",
         "rust/library/std/src/sys_common/tests.rs",
         "rust/library/std/src/sys_common/wstr.rs",
         "rust/library/std/src/sys_common/wtf8.rs",
@@ -13363,7 +13278,7 @@ rust_bootstrap_library(
     deps = [
         ":alloc-0.0.0",
         ":cfg-if-1.0.0",
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
         ":core-0.0.0",
         ":hashbrown-0.15.3",
         ":panic_unwind-0.0.0",
@@ -13401,7 +13316,6 @@ rust_bootstrap_library(
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/aarch64.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/arm.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/auxvec.rs",
-        "rust/library/stdarch/crates/std_detect/src/detect/os/linux/cpuinfo.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/loongarch.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/mips.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/mod.rs",
@@ -13410,6 +13324,7 @@ rust_bootstrap_library(
         "rust/library/stdarch/crates/std_detect/src/detect/os/linux/s390x.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/openbsd/aarch64.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/other.rs",
+        "rust/library/stdarch/crates/std_detect/src/detect/os/riscv.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/windows/aarch64.rs",
         "rust/library/stdarch/crates/std_detect/src/detect/os/x86.rs",
         "rust/library/stdarch/crates/std_detect/src/lib.rs",
@@ -13447,7 +13362,7 @@ rust_bootstrap_library(
     visibility = [],
     deps = [
         ":cfg-if-1.0.0",
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
     ],
 )
 
@@ -13824,77 +13739,6 @@ rust_bootstrap_library(
     edition = "2015",
     visibility = [],
     deps = [":num_cpus-1.17.0"],
-)
-
-crate_download(
-    name = "time-0.3.41.crate",
-    sha256 = "8a7619e19bc266e0f9c5e6686659d394bc57973859340060a69221e57dbc0c40",
-    strip_prefix = "time-0.3.41",
-    urls = ["https://static.crates.io/crates/time/0.3.41/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "time-0.3.41",
-    srcs = [":time-0.3.41.crate"],
-    crate = "time",
-    crate_root = "time-0.3.41.crate/src/lib.rs",
-    edition = "2021",
-    features = [
-        "alloc",
-        "formatting",
-        "macros",
-        "std",
-    ],
-    visibility = [],
-    deps = [
-        ":deranged-0.4.0",
-        ":itoa-1.0.15",
-        ":num-conv-0.1.0",
-        ":powerfmt-0.2.0",
-        ":time-core-0.1.4",
-        ":time-macros-0.2.22",
-    ],
-)
-
-crate_download(
-    name = "time-core-0.1.4.crate",
-    sha256 = "c9e9a38711f559d9e3ce1cdb06dd7c5b8ea546bc90052da6d06bb76da74bb07c",
-    strip_prefix = "time-core-0.1.4",
-    urls = ["https://static.crates.io/crates/time-core/0.1.4/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "time-core-0.1.4",
-    srcs = [":time-core-0.1.4.crate"],
-    crate = "time_core",
-    crate_root = "time-core-0.1.4.crate/src/lib.rs",
-    edition = "2021",
-    visibility = [],
-)
-
-crate_download(
-    name = "time-macros-0.2.22.crate",
-    sha256 = "3526739392ec93fd8b359c8e98514cb3e8e021beb4e5f597b00a0221f8ed8a49",
-    strip_prefix = "time-macros-0.2.22",
-    urls = ["https://static.crates.io/crates/time-macros/0.2.22/download"],
-    visibility = [],
-)
-
-rust_bootstrap_library(
-    name = "time-macros-0.2.22",
-    srcs = [":time-macros-0.2.22.crate"],
-    crate = "time_macros",
-    crate_root = "time-macros-0.2.22.crate/src/lib.rs",
-    edition = "2021",
-    features = ["formatting"],
-    proc_macro = True,
-    visibility = [],
-    deps = [
-        ":num-conv-0.1.0",
-        ":time-core-0.1.4",
-    ],
 )
 
 crate_download(
@@ -14552,7 +14396,7 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "linux-x86_64-library": dict(
             features = [
@@ -14565,7 +14409,7 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-arm64-library": dict(
             features = [
@@ -14578,7 +14422,7 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "macos-x86_64-library": dict(
             features = [
@@ -14591,7 +14435,7 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-gnu-library": dict(
             features = [
@@ -14604,7 +14448,7 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
         "windows-msvc-library": dict(
             features = [
@@ -14617,7 +14461,7 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
-            deps = [":compiler_builtins-0.1.152"],
+            deps = [":compiler_builtins-0.1.158"],
         ),
     },
     visibility = [],
@@ -14672,7 +14516,7 @@ rust_bootstrap_library(
     visibility = [],
     deps = [
         ":cfg-if-1.0.0",
-        ":compiler_builtins-0.1.152",
+        ":compiler_builtins-0.1.158",
         ":core-0.0.0",
     ],
 )
@@ -15387,6 +15231,28 @@ rust_bootstrap_library(
     srcs = [":winnow-0.5.40.crate"],
     crate = "winnow",
     crate_root = "winnow-0.5.40.crate/src/lib.rs",
+    edition = "2021",
+    features = [
+        "alloc",
+        "default",
+        "std",
+    ],
+    visibility = [],
+)
+
+crate_download(
+    name = "winnow-0.7.12.crate",
+    sha256 = "f3edebf492c8125044983378ecb5766203ad3b4c2f7a922bd7dd207f6d443e95",
+    strip_prefix = "winnow-0.7.12",
+    urls = ["https://static.crates.io/crates/winnow/0.7.12/download"],
+    visibility = [],
+)
+
+rust_bootstrap_library(
+    name = "winnow-0.7.12",
+    srcs = [":winnow-0.7.12.crate"],
+    crate = "winnow",
+    crate_root = "winnow-0.7.12.crate/src/lib.rs",
     edition = "2021",
     features = [
         "alloc",
