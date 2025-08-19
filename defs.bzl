@@ -76,7 +76,7 @@ def rust_bootstrap_library(
         default_target_platform = "//platforms/stage1:compiler"
         messages_ftl = glob(["rust/compiler/{}/messages.ftl".format(crate)])
         if messages_ftl:
-            extra_env["CARGO_PKG_NAME"] = crate
+            extra_env["CARGO_CRATE_NAME"] = crate
             extra_srcs += messages_ftl
         extra_srcs.append("rust/src/version")
         extra_env["CFG_RELEASE"] = "\\$(cat rust/src/version)"
