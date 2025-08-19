@@ -40,24 +40,50 @@ http_archive = "crate_download"
 rust_binary = "rust_bootstrap_binary"
 rust_library = "rust_bootstrap_library"
 
-[universe.library]
-constraint = "//constraints:library"
-include_crates = [
-    "alloc",
-    "compiler_builtins",
-    "core",
-    "panic_abort",
-    "panic_unwind",
-    "proc_macro",
-    "std",
-    "test",
-]
+[platform.linux-x86_64-library]
+target = "x86_64-unknown-linux-gnu"
+workspace = ["library"]
 
-[universe.compiler]
-constraint = "//constraints:compiler"
-include_crates = [
-    "allocator-api2",
-    "clippy",
-    "rustc-main",
-    "rustdoc-tool",
-]
+[platform.linux-x86_64-compiler]
+target = "x86_64-unknown-linux-gnu"
+workspace = ["compiler"]
+
+[platform.linux-arm64-library]
+target = "aarch64-unknown-linux-gnu"
+workspace = ["library"]
+
+[platform.linux-arm64-compiler]
+target = "aarch64-unknown-linux-gnu"
+workspace = ["compiler"]
+
+[platform.macos-x86_64-library]
+target = "x86_64-apple-darwin"
+workspace = ["library"]
+
+[platform.macos-x86_64-compiler]
+target = "x86_64-apple-darwin"
+workspace = ["compiler"]
+
+[platform.macos-arm64-library]
+target = "aarch64-apple-darwin"
+workspace = ["library"]
+
+[platform.macos-arm64-compiler]
+target = "aarch64-apple-darwin"
+workspace = ["compiler"]
+
+[platform.windows-msvc-library]
+target = "x86_64-pc-windows-msvc"
+workspace = ["library"]
+
+[platform.windows-msvc-compiler]
+target = "x86_64-pc-windows-msvc"
+workspace = ["compiler"]
+
+[platform.windows-gnu-library]
+target = "x86_64-pc-windows-gnu"
+workspace = ["library"]
+
+[platform.windows-gnu-compiler]
+target = "x86_64-pc-windows-gnu"
+workspace = ["compiler"]
