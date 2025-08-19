@@ -632,9 +632,6 @@ rust_bootstrap_library(
             rustc_flags = ["--cfg=blake3_neon"],
             deps = [":blake3-1.8.2-simd_neon-aarch64"],
         ),
-        "linux-arm64-library": dict(
-            rustc_flags = ["--cfg=blake3_neon"],
-        ),
         "linux-x86_64-compiler": dict(
             rustc_flags = [
                 "--cfg=blake3_avx2_ffi",
@@ -644,20 +641,9 @@ rust_bootstrap_library(
             ],
             deps = [":blake3-1.8.2-simd_x86_unix"],
         ),
-        "linux-x86_64-library": dict(
-            rustc_flags = [
-                "--cfg=blake3_avx2_ffi",
-                "--cfg=blake3_avx512_ffi",
-                "--cfg=blake3_sse2_ffi",
-                "--cfg=blake3_sse41_ffi",
-            ],
-        ),
         "macos-arm64-compiler": dict(
             rustc_flags = ["--cfg=blake3_neon"],
             deps = [":blake3-1.8.2-simd_neon-aarch64"],
-        ),
-        "macos-arm64-library": dict(
-            rustc_flags = ["--cfg=blake3_neon"],
         ),
         "macos-x86_64-compiler": dict(
             rustc_flags = [
@@ -668,14 +654,6 @@ rust_bootstrap_library(
             ],
             deps = [":blake3-1.8.2-simd_x86_unix"],
         ),
-        "macos-x86_64-library": dict(
-            rustc_flags = [
-                "--cfg=blake3_avx2_ffi",
-                "--cfg=blake3_avx512_ffi",
-                "--cfg=blake3_sse2_ffi",
-                "--cfg=blake3_sse41_ffi",
-            ],
-        ),
         "windows-gnu-compiler": dict(
             rustc_flags = [
                 "--cfg=blake3_avx2_ffi",
@@ -685,14 +663,6 @@ rust_bootstrap_library(
             ],
             deps = [":blake3-1.8.2-simd_x86_windows_gnu"],
         ),
-        "windows-gnu-library": dict(
-            rustc_flags = [
-                "--cfg=blake3_avx2_ffi",
-                "--cfg=blake3_avx512_ffi",
-                "--cfg=blake3_sse2_ffi",
-                "--cfg=blake3_sse41_ffi",
-            ],
-        ),
         "windows-msvc-compiler": dict(
             rustc_flags = [
                 "--cfg=blake3_avx2_ffi",
@@ -701,14 +671,6 @@ rust_bootstrap_library(
                 "--cfg=blake3_sse41_ffi",
             ],
             deps = [":blake3-1.8.2-simd_x86_windows_msvc"],
-        ),
-        "windows-msvc-library": dict(
-            rustc_flags = [
-                "--cfg=blake3_avx2_ffi",
-                "--cfg=blake3_avx512_ffi",
-                "--cfg=blake3_sse2_ffi",
-                "--cfg=blake3_sse41_ffi",
-            ],
         ),
     },
     visibility = [],
@@ -3554,6 +3516,7 @@ rust_bootstrap_library(
     visibility = [],
     deps = [
         ":ahash-0.8.11",
+        ":allocator-api2-0.2.21",
         "//allocator:allocator-api2",
     ],
 )
@@ -6284,72 +6247,29 @@ rust_bootstrap_library(
     edition = "2021",
     platform = {
         "linux-arm64-compiler": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
+            rustc_flags = ["--cfg=switchable_stack"],
             deps = [":psm-0.1.26-psm_s-linux-aarch64"],
         ),
-        "linux-arm64-library": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
-        ),
         "linux-x86_64-compiler": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
+            rustc_flags = ["--cfg=switchable_stack"],
             deps = [":psm-0.1.26-psm_s-linux-x86_64"],
         ),
-        "linux-x86_64-library": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
-        ),
         "macos-arm64-compiler": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
+            rustc_flags = ["--cfg=switchable_stack"],
             deps = [":psm-0.1.26-psm_s-macos-aarch64"],
         ),
-        "macos-arm64-library": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
-        ),
         "macos-x86_64-compiler": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
+            rustc_flags = ["--cfg=switchable_stack"],
             deps = [":psm-0.1.26-psm_s-macos-x86_64"],
         ),
-        "macos-x86_64-library": dict(
-            rustc_flags = [
-                "--cfg=asm",
-                "--cfg=switchable_stack",
-            ],
-        ),
         "windows-gnu-compiler": dict(
-            rustc_flags = ["--cfg=asm"],
             deps = [":psm-0.1.26-psm_s-windows-x86_64-gnu"],
         ),
-        "windows-gnu-library": dict(
-            rustc_flags = ["--cfg=asm"],
-        ),
         "windows-msvc-compiler": dict(
-            rustc_flags = ["--cfg=asm"],
             deps = [":psm-0.1.26-psm_s-windows-x86_64-msvc"],
         ),
-        "windows-msvc-library": dict(
-            rustc_flags = ["--cfg=asm"],
-        ),
     },
+    rustc_flags = ["--cfg=asm"],
     visibility = [],
 )
 
@@ -13032,11 +12952,6 @@ rust_bootstrap_library(
         "std_detect_file_io",
     ],
     platform = {
-        "linux-arm64-compiler": dict(
-            env = {
-                "STD_ENV_ARCH": "aarch64",
-            },
-        ),
         "linux-arm64-library": dict(
             env = {
                 "STD_ENV_ARCH": "aarch64",
@@ -13052,11 +12967,6 @@ rust_bootstrap_library(
                 ":miniz_oxide-0.8.8",
                 ":object-0.36.7",
             ],
-        ),
-        "linux-x86_64-compiler": dict(
-            env = {
-                "STD_ENV_ARCH": "x86_64",
-            },
         ),
         "linux-x86_64-library": dict(
             env = {
@@ -13074,11 +12984,6 @@ rust_bootstrap_library(
                 ":object-0.36.7",
             ],
         ),
-        "macos-arm64-compiler": dict(
-            env = {
-                "STD_ENV_ARCH": "aarch64",
-            },
-        ),
         "macos-arm64-library": dict(
             env = {
                 "STD_ENV_ARCH": "aarch64",
@@ -13094,11 +12999,6 @@ rust_bootstrap_library(
                 ":miniz_oxide-0.8.8",
                 ":object-0.36.7",
             ],
-        ),
-        "macos-x86_64-compiler": dict(
-            env = {
-                "STD_ENV_ARCH": "x86_64",
-            },
         ),
         "macos-x86_64-library": dict(
             env = {
@@ -13116,11 +13016,6 @@ rust_bootstrap_library(
                 ":object-0.36.7",
             ],
         ),
-        "windows-gnu-compiler": dict(
-            env = {
-                "STD_ENV_ARCH": "x86_64",
-            },
-        ),
         "windows-gnu-library": dict(
             env = {
                 "STD_ENV_ARCH": "x86_64",
@@ -13137,11 +13032,6 @@ rust_bootstrap_library(
                 ":object-0.36.7",
                 ":windows-targets-0.0.0",
             ],
-        ),
-        "windows-msvc-compiler": dict(
-            env = {
-                "STD_ENV_ARCH": "x86_64",
-            },
         ),
         "windows-msvc-library": dict(
             env = {
@@ -14622,6 +14512,9 @@ rust_bootstrap_library(
     crate = "winapi",
     crate_root = "winapi-0.3.9.crate/src/lib.rs",
     edition = "2015",
+    env = {
+        "OUT_DIR": "$(location :winapi-0.3.9-build-script-run[out_dir])",
+    },
     features = [
         "consoleapi",
         "errhandlingapi",
@@ -14633,31 +14526,10 @@ rust_bootstrap_library(
     ],
     platform = {
         "windows-gnu-compiler": dict(
-            env = {
-                "OUT_DIR": "$(location :winapi-0.3.9-build-script-run[out_dir])",
-            },
-            rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
             deps = [":winapi-x86_64-pc-windows-gnu-0.4.0"],
         ),
-        "windows-gnu-library": dict(
-            env = {
-                "OUT_DIR": "$(location :winapi-0.3.9-build-script-run[out_dir])",
-            },
-            rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
-        ),
-        "windows-msvc-compiler": dict(
-            env = {
-                "OUT_DIR": "$(location :winapi-0.3.9-build-script-run[out_dir])",
-            },
-            rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
-        ),
-        "windows-msvc-library": dict(
-            env = {
-                "OUT_DIR": "$(location :winapi-0.3.9-build-script-run[out_dir])",
-            },
-            rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
-        ),
     },
+    rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
     visibility = [],
     deps = [
         "//platforms/windows:advapi32.lib",
@@ -14768,12 +14640,6 @@ rust_bootstrap_buildscript_run(
         "winbase",
         "wincon",
     ],
-    platform = {
-        "windows-gnu-compiler": dict(),
-        "windows-gnu-library": dict(),
-        "windows-msvc-compiler": dict(),
-        "windows-msvc-library": dict(),
-    },
     version = "0.3.9",
 )
 
