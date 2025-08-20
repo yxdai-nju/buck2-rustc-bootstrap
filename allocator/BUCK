@@ -32,6 +32,6 @@ alias(
         "//constraints:library": None,
         "//constraints:compiler": "//:allocator-api2",
     }),
-    default_target_platform = "//platforms/stage2:library",
+    default_target_platform = "//platforms/stage1:library",
     visibility = ["//:"],
 )

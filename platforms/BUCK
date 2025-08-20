@@ -16,9 +16,11 @@ execution_platforms(
         ":host",
         "//platforms/stage1:compiler",
         "//platforms/stage1:compiler-build-script",
-        "//platforms/stage2:library",
-        "//platforms/stage2:library-build-script",
+        "//platforms/stage1:library",
+        "//platforms/stage1:library-build-script",
         "//platforms/stage2:compiler",
         "//platforms/stage2:compiler-build-script",
+        "//platforms/stage2:library",
+        "//platforms/stage2:library-build-script",
     ],
 )

@@ -23,7 +23,7 @@ def rust_bootstrap_binary(
     extra_rustc_flags = []
 
     if crate_root.startswith("rust/library/"):
-        default_target_platform = "//platforms/stage2:library-build-script"
+        default_target_platform = "//platforms/stage1:library-build-script"
     elif crate_root.startswith("rust/compiler/") or crate_root.startswith("rust/src/"):
         default_target_platform = "//platforms/stage1:compiler"
     else:
@@ -72,7 +72,7 @@ def rust_bootstrap_library(
     extra_srcs = []
 
     if crate_root.startswith("rust/library/"):
-        default_target_platform = "//platforms/stage2:library"
+        default_target_platform = "//platforms/stage1:library"
     elif crate_root.startswith("rust/compiler/") or crate_root.startswith("rust/src/"):
         default_target_platform = "//platforms/stage1:compiler"
         messages_ftl = glob(["rust/compiler/{}/messages.ftl".format(crate)])
