@@ -9,22 +9,10 @@ extra_srcs = [
     "../stdarch/crates/core_arch/src/core_arch_docs.md",
 ]
 
-buildscript.run = false
-cfgs = ["backtrace_in_libstd"]
+buildscript.run = true
 rustc_flags = ["-Zforce-unstable-if-unmarked"]
 preferred_linkage = "any"
 
-['cfg(all(any(target_os = "linux", target_os = "macos"), target_arch = "x86_64"))']
-env = { "STD_ENV_ARCH" = "x86_64" }
-omit_deps = ["panic_abort"]
-extra_deps = [":panic_unwind-0.0.0"]
-
-['cfg(all(any(target_os = "linux", target_os = "macos"), target_arch = "aarch64"))']
-env = { "STD_ENV_ARCH" = "aarch64" }
-omit_deps = ["panic_abort"]
-extra_deps = [":panic_unwind-0.0.0"]
-
-['cfg(windows)']
-env = { "STD_ENV_ARCH" = "x86_64" }
+['cfg(any(target_os = "linux", target_os = "macos", windows))']
 omit_deps = ["panic_abort"]
 extra_deps = [":panic_unwind-0.0.0"]
