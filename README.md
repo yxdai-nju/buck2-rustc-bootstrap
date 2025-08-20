@@ -87,8 +87,8 @@ linker, which usually does not support linking for a different platform. But we
 do support type-checking, rustdoc, and clippy for different platforms, including
 both stage1 and stage2.
 
-Use the modifiers `aarch64`, `x86_64`, `linux`, `macos`, `windows`, or use
-target platforms like `//platforms/cross:aarch64-unknown-linux-gnu`.
+Use the modifiers `aarch64`, `riscv64`, `x86_64`, `linux`, `macos`, `windows`,
+or use target platforms like `//platforms/cross:aarch64-unknown-linux-gnu`.
 
 ```console
   # Typecheck rustc in stage1 for aarch64 linux (two equivalent ways)

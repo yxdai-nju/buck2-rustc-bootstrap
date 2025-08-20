@@ -15,6 +15,7 @@ set_cfg_constructor(
         stage2 = "//constraints:stage2",
         # Architecture (prelude//cpu/constraints:cpu)
         aarch64 = "prelude//cpu/constraints:arm64",
+        riscv64 = "prelude//cpu/constraints:riscv64",
         x86_64 = "prelude//cpu/constraints:x86_64",
         # Operating system (prelude//os/constraints:os)
         linux = "prelude//os/constraints:linux",
@@ -33,6 +34,10 @@ set_reindeer_platforms(
             "prelude//cpu:arm64": select({
                 "//constraints:library": "linux-arm64-library",
                 "//constraints:compiler": "linux-arm64-compiler",
+            }),
+            "prelude//cpu:riscv64": select({
+                "//constraints:library": "linux-riscv64-library",
+                "//constraints:compiler": "linux-riscv64-compiler",
             }),
             "prelude//cpu:x86_64": select({
                 "//constraints:library": "linux-x86_64-library",
