@@ -162,7 +162,7 @@ def _target_constraints(crate_root):
         ]
     else:
         target_compatible_with = select({
-            "DEFAULT": ["//constraints:false"],
+            "DEFAULT": ["prelude//:none"],
             "//constraints:compiler": [],
             "//constraints:library": [],
         })
