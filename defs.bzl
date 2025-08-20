@@ -151,14 +151,9 @@ def cxx_bootstrap_library(
 
 def _target_constraints(crate_root):
     if crate_root and crate_root.startswith("rust/library/"):
-        target_compatible_with = [
-            "//constraints:library",
-            "//constraints:build-script=false",
-        ]
+        target_compatible_with = ["//constraints:library"]
     elif crate_root and (crate_root.startswith("rust/compiler/") or crate_root.startswith("rust/src/")):
-        target_compatible_with = [
-            "//constraints:compiler",
-        ]
+        target_compatible_with = ["//constraints:compiler"]
     else:
         target_compatible_with = select({
             "DEFAULT": ["prelude//:none"],
