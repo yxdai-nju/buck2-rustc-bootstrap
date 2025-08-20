@@ -45,7 +45,7 @@ rust_toolchain(
     }),
     exec_compatible_with = [
         "rust//constraints:opt-level=0",
-        "rust//constraints:sysroot-deps=implicit",
+        "rust//constraints:build-script=true",
     ] + select({
         "rust//constraints:compiler": ["rust//constraints:compiler"],
         "rust//constraints:library": ["rust//constraints:library"],

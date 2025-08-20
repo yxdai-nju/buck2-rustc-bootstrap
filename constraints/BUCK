@@ -1,18 +1,6 @@
 load(":defs.bzl", "constraint")
 
 constraint(
-    setting = "sysroot-deps",
-    values = [
-        # Crate must declare explicit dependencies on standard library. This is
-        # enabled within standard library code.
-        "sysroot-deps=explicit",
-        # Crate implicitly receives access to standard library crates, such as
-        # within compiler code and standard library build scripts.
-        "sysroot-deps=implicit",
-    ],
-)
-
-constraint(
     setting = "workspace",
     values = [
         # Transitive dependencies of rust/library/.

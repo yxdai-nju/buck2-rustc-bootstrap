@@ -6,7 +6,6 @@ configuration_transition(
     discard_settings = [
         "rust//constraints:bootstrap-stage",
         "rust//constraints:build-script",
-        "rust//constraints:sysroot-deps",
         "rust//constraints:workspace",
     ],
     label = "cxx",

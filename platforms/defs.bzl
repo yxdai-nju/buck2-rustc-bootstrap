@@ -68,7 +68,6 @@ platform = rule(
             "//constraints:bootstrap-stage",
             "//constraints:build-script",
             "//constraints:opt-level",
-            "//constraints:sysroot-deps",
             "//constraints:workspace",
         ]),
     },

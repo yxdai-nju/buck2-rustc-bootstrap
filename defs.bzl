@@ -153,12 +153,11 @@ def _target_constraints(crate_root):
     if crate_root and crate_root.startswith("rust/library/"):
         target_compatible_with = [
             "//constraints:library",
-            "//constraints:sysroot-deps=explicit",
+            "//constraints:build-script=false",
         ]
     elif crate_root and (crate_root.startswith("rust/compiler/") or crate_root.startswith("rust/src/")):
         target_compatible_with = [
             "//constraints:compiler",
-            "//constraints:sysroot-deps=implicit",
         ]
     else:
         target_compatible_with = select({
