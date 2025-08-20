@@ -77,6 +77,15 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
         ),
+        "linux-riscv64-library": dict(
+            features = [
+                "core",
+                "rustc-dep-of-std",
+            ],
+            named_deps = {
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
         "linux-x86_64-library": dict(
             features = [
                 "core",
@@ -621,6 +630,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             features = ["std"],
         ),
+        "linux-riscv64-compiler": dict(
+            features = ["std"],
+        ),
         "linux-x86_64-compiler": dict(
             features = ["std"],
         ),
@@ -978,6 +990,15 @@ rust_bootstrap_library(
     edition = "2018",
     platform = {
         "linux-arm64-library": dict(
+            features = [
+                "core",
+                "rustc-dep-of-std",
+            ],
+            named_deps = {
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "core",
                 "rustc-dep-of-std",
@@ -3145,6 +3166,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":nix-0.30.1"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":nix-0.30.1"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":nix-0.30.1"],
         ),
@@ -3702,6 +3726,17 @@ rust_bootstrap_library(
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
         ),
+        "linux-riscv64-library": dict(
+            features = [
+                "core",
+                "rustc-dep-of-std",
+                "std",
+            ],
+            named_deps = {
+                "core": ":rustc-std-workspace-core-1.99.0",
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
         "linux-x86_64-library": dict(
             features = [
                 "core",
@@ -3781,6 +3816,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -3812,6 +3850,9 @@ rust_bootstrap_library(
     features = ["std"],
     platform = {
         "linux-arm64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-compiler": dict(
@@ -3938,6 +3979,32 @@ rust_bootstrap_library(
             ],
         ),
         "linux-arm64-library": dict(
+            features = [
+                "alloc",
+                "core",
+                "rustc-dep-of-std",
+                "rustc-internal-api",
+            ],
+            named_deps = {
+                "alloc": ":rustc-std-workspace-alloc-1.99.0",
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "allocator-api2",
+                "default",
+                "default-hasher",
+                "equivalent",
+                "inline-more",
+            ],
+            deps = [
+                ":allocator-api2-0.2.21",
+                ":equivalent-1.0.2",
+                ":foldhash-0.1.5",
+            ],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "alloc",
                 "core",
@@ -4680,6 +4747,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -4759,6 +4829,21 @@ rust_bootstrap_library(
             ],
         ),
         "linux-arm64-library": dict(
+            features = [
+                "align",
+                "rustc-dep-of-std",
+                "rustc-std-workspace-core",
+            ],
+            deps = [":rustc-std-workspace-core-1.99.0"],
+        ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "default",
+                "extra_traits",
+                "std",
+            ],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "align",
                 "rustc-dep-of-std",
@@ -4857,6 +4942,20 @@ rust_bootstrap_binary(
                 "rustc-std-workspace-core",
             ],
         ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "default",
+                "extra_traits",
+                "std",
+            ],
+        ),
+        "linux-riscv64-library": dict(
+            features = [
+                "align",
+                "rustc-dep-of-std",
+                "rustc-std-workspace-core",
+            ],
+        ),
         "linux-x86_64-compiler": dict(
             features = [
                 "default",
@@ -4935,6 +5034,20 @@ rust_bootstrap_buildscript_run(
             ],
         ),
         "linux-arm64-library": dict(
+            features = [
+                "align",
+                "rustc-dep-of-std",
+                "rustc-std-workspace-core",
+            ],
+        ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "default",
+                "extra_traits",
+                "std",
+            ],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "align",
                 "rustc-dep-of-std",
@@ -5022,6 +5135,9 @@ rust_bootstrap_library(
     edition = "2015",
     platform = {
         "linux-arm64-compiler": dict(
+            deps = [":cfg-if-1.0.3"],
+        ),
+        "linux-riscv64-compiler": dict(
             deps = [":cfg-if-1.0.3"],
         ),
         "linux-x86_64-compiler": dict(
@@ -5277,6 +5393,22 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
         ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "alloc",
+                "default",
+                "std",
+            ],
+        ),
+        "linux-riscv64-library": dict(
+            features = [
+                "core",
+                "rustc-dep-of-std",
+            ],
+            named_deps = {
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
         "linux-x86_64-compiler": dict(
             features = [
                 "alloc",
@@ -5370,6 +5502,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -5437,6 +5572,20 @@ rust_bootstrap_library(
             features = ["with-alloc"],
         ),
         "linux-arm64-library": dict(
+            features = [
+                "alloc",
+                "core",
+                "rustc-dep-of-std",
+            ],
+            named_deps = {
+                "alloc": ":rustc-std-workspace-alloc-1.99.0",
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
+        "linux-riscv64-compiler": dict(
+            features = ["with-alloc"],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "alloc",
                 "core",
@@ -5668,6 +5817,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -5819,6 +5971,34 @@ rust_bootstrap_library(
             ],
         ),
         "linux-arm64-library": dict(
+            features = [
+                "alloc",
+                "core",
+                "rustc-dep-of-std",
+            ],
+            named_deps = {
+                "alloc": ":rustc-std-workspace-alloc-1.99.0",
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "read",
+                "std",
+                "wasm",
+                "write",
+                "write_core",
+                "write_std",
+                "xcoff",
+            ],
+            deps = [
+                ":crc32fast-1.5.0",
+                ":hashbrown-0.15.5",
+                ":indexmap-2.10.0",
+                ":wasmparser-0.236.1",
+            ],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "alloc",
                 "core",
@@ -5998,6 +6178,24 @@ rust_bootstrap_binary(
                 "rustc-dep-of-std",
             ],
         ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "read",
+                "std",
+                "wasm",
+                "write",
+                "write_core",
+                "write_std",
+                "xcoff",
+            ],
+        ),
+        "linux-riscv64-library": dict(
+            features = [
+                "alloc",
+                "core",
+                "rustc-dep-of-std",
+            ],
+        ),
         "linux-x86_64-compiler": dict(
             features = [
                 "read",
@@ -6111,6 +6309,24 @@ rust_bootstrap_buildscript_run(
             ],
         ),
         "linux-arm64-library": dict(
+            features = [
+                "alloc",
+                "core",
+                "rustc-dep-of-std",
+            ],
+        ),
+        "linux-riscv64-compiler": dict(
+            features = [
+                "read",
+                "std",
+                "wasm",
+                "write",
+                "write_core",
+                "write_std",
+                "xcoff",
+            ],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "alloc",
                 "core",
@@ -6329,6 +6545,9 @@ rust_bootstrap_library(
         "linux-arm64-library": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-library": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-library": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -6393,6 +6612,9 @@ rust_bootstrap_library(
     },
     platform = {
         "linux-arm64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-compiler": dict(
@@ -6703,29 +6925,42 @@ rust_bootstrap_library(
     edition = "2021",
     platform = {
         "linux-arm64-compiler": dict(
-            rustc_flags = ["--cfg=switchable_stack"],
+            rustc_flags = [
+                "--cfg=asm",
+                "--cfg=switchable_stack",
+            ],
             deps = [":psm-0.1.26-psm_s-linux-aarch64"],
         ),
         "linux-x86_64-compiler": dict(
-            rustc_flags = ["--cfg=switchable_stack"],
+            rustc_flags = [
+                "--cfg=asm",
+                "--cfg=switchable_stack",
+            ],
             deps = [":psm-0.1.26-psm_s-linux-x86_64"],
         ),
         "macos-arm64-compiler": dict(
-            rustc_flags = ["--cfg=switchable_stack"],
+            rustc_flags = [
+                "--cfg=asm",
+                "--cfg=switchable_stack",
+            ],
             deps = [":psm-0.1.26-psm_s-macos-aarch64"],
         ),
         "macos-x86_64-compiler": dict(
-            rustc_flags = ["--cfg=switchable_stack"],
+            rustc_flags = [
+                "--cfg=asm",
+                "--cfg=switchable_stack",
+            ],
             deps = [":psm-0.1.26-psm_s-macos-x86_64"],
         ),
         "windows-gnu-compiler": dict(
+            rustc_flags = ["--cfg=asm"],
             deps = [":psm-0.1.26-psm_s-windows-x86_64-gnu"],
         ),
         "windows-msvc-compiler": dict(
+            rustc_flags = ["--cfg=asm"],
             deps = [":psm-0.1.26-psm_s-windows-x86_64-msvc"],
         ),
     },
-    rustc_flags = ["--cfg=asm"],
     visibility = [],
 )
 
@@ -6905,6 +7140,9 @@ rust_bootstrap_library(
     ],
     platform = {
         "linux-arm64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-compiler": dict(
@@ -7272,6 +7510,15 @@ rust_bootstrap_library(
                 "core": ":rustc-std-workspace-core-1.99.0",
             },
         ),
+        "linux-riscv64-library": dict(
+            features = [
+                "core",
+                "rustc-dep-of-std",
+            ],
+            named_deps = {
+                "core": ":rustc-std-workspace-core-1.99.0",
+            },
+        ),
         "linux-x86_64-library": dict(
             features = [
                 "core",
@@ -7379,6 +7626,12 @@ rust_bootstrap_library(
     edition = "2021",
     platform = {
         "linux-arm64-library": dict(
+            features = ["rustc-dep-of-std"],
+            named_deps = {
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
+        "linux-riscv64-library": dict(
             features = ["rustc-dep-of-std"],
             named_deps = {
                 "std": ":rustc-std-workspace-std-1.99.0",
@@ -8165,6 +8418,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -8388,6 +8644,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -8449,6 +8708,9 @@ rust_bootstrap_library(
     features = ["llvm"],
     platform = {
         "linux-arm64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-compiler": dict(
@@ -10887,6 +11149,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -12262,6 +12527,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":linux-raw-sys-0.9.4"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":linux-raw-sys-0.9.4"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":linux-raw-sys-0.9.4"],
         ),
@@ -12636,10 +12904,29 @@ rust_bootstrap_library(
         "default",
         "std",
     ],
+    platform = {
+        "linux-arm64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "linux-x86_64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "macos-arm64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "macos-x86_64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "windows-gnu-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "windows-msvc-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+    },
     visibility = [],
     deps = [
         ":cfg-if-1.0.3",
-        ":cpufeatures-0.2.17",
         ":digest-0.10.7",
     ],
 )
@@ -12662,10 +12949,29 @@ rust_bootstrap_library(
         "default",
         "std",
     ],
+    platform = {
+        "linux-arm64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "linux-x86_64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "macos-arm64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "macos-x86_64-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "windows-gnu-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+        "windows-msvc-compiler": dict(
+            deps = [":cpufeatures-0.2.17"],
+        ),
+    },
     visibility = [],
     deps = [
         ":cfg-if-1.0.3",
-        ":cpufeatures-0.2.17",
         ":digest-0.10.7",
     ],
 )
@@ -13516,6 +13822,19 @@ rust_bootstrap_library(
                 ":object-0.37.3",
             ],
         ),
+        "linux-riscv64-library": dict(
+            features = [
+                "addr2line",
+                "miniz_oxide",
+                "object",
+            ],
+            deps = [
+                ":addr2line-0.25.0",
+                ":libc-0.2.175",
+                ":miniz_oxide-0.8.9",
+                ":object-0.37.3",
+            ],
+        ),
         "linux-x86_64-library": dict(
             features = [
                 "addr2line",
@@ -14319,6 +14638,13 @@ rust_bootstrap_binary(
                 "object",
             ],
         ),
+        "linux-riscv64-library": dict(
+            features = [
+                "addr2line",
+                "miniz_oxide",
+                "object",
+            ],
+        ),
         "linux-x86_64-library": dict(
             features = [
                 "addr2line",
@@ -14363,6 +14689,13 @@ rust_bootstrap_buildscript_run(
     local_manifest_dir = "rust/library/std",
     platform = {
         "linux-arm64-library": dict(
+            features = [
+                "addr2line",
+                "miniz_oxide",
+                "object",
+            ],
+        ),
+        "linux-riscv64-library": dict(
             features = [
                 "addr2line",
                 "miniz_oxide",
@@ -14459,6 +14792,9 @@ rust_bootstrap_library(
     },
     platform = {
         "linux-arm64-library": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-library": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-library": dict(
@@ -14575,6 +14911,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":rustix-1.0.8"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":rustix-1.0.8"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":rustix-1.0.8"],
         ),
@@ -14642,6 +14981,9 @@ rust_bootstrap_library(
         "linux-arm64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
+        "linux-riscv64-compiler": dict(
+            deps = [":libc-0.2.175"],
+        ),
         "linux-x86_64-compiler": dict(
             deps = [":libc-0.2.175"],
         ),
@@ -14706,6 +15048,9 @@ rust_bootstrap_library(
     edition = "2024",
     platform = {
         "linux-arm64-library": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-library": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-library": dict(
@@ -15550,6 +15895,17 @@ rust_bootstrap_library(
                 "std": ":rustc-std-workspace-std-1.99.0",
             },
         ),
+        "linux-riscv64-library": dict(
+            features = [
+                "core",
+                "rustc-dep-of-std",
+                "std",
+            ],
+            named_deps = {
+                "core": ":rustc-std-workspace-core-1.99.0",
+                "std": ":rustc-std-workspace-std-1.99.0",
+            },
+        ),
         "linux-x86_64-library": dict(
             features = [
                 "core",
@@ -15640,6 +15996,9 @@ rust_bootstrap_library(
     edition = "2024",
     platform = {
         "linux-arm64-library": dict(
+            deps = [":libc-0.2.175"],
+        ),
+        "linux-riscv64-library": dict(
             deps = [":libc-0.2.175"],
         ),
         "linux-x86_64-library": dict(

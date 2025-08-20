@@ -56,6 +56,14 @@ workspace = ["library"]
 target = "aarch64-unknown-linux-gnu"
 workspace = ["compiler"]
 
+[platform.linux-riscv64-library]
+target = "riscv64gc-unknown-linux-gnu"
+workspace = ["library"]
+
+[platform.linux-riscv64-compiler]
+target = "riscv64gc-unknown-linux-gnu"
+workspace = ["compiler"]
+
 [platform.macos-x86_64-library]
 target = "x86_64-apple-darwin"
 workspace = ["library"]

@@ -77,6 +77,7 @@ ci_artifact(
         "aarch64-apple-darwin": "00b60db97f509682e521687b2118361de2bfed175758b8c2a5319e9e521aab93",
         "aarch64-pc-windows-msvc": "7ca8d82470afe815c6c27dd4ccf93319d83fd3531f1040661576dae68e314ec6",
         "aarch64-unknown-linux-gnu": "7fc2a25a67c30d0566f39421e16a0e0f9a3928b083f36a96b9bd344819f21ae9",
+        "riscv64gc-unknown-linux-gnu": "70e6e8b952f199d1ed64ecfb285ec098039f59596debcd596b4fa6a247e910a0",
         "x86_64-apple-darwin": "610e8aa0c721b42ab5526e1918dc99c08615ea425dcab9687d00b130005c905a",
         "x86_64-pc-windows-msvc": "4d4b5d47a4a8c25802dece8d4eee1682144da7d81b9164a55f75312ea45b90c0",
         "x86_64-unknown-linux-gnu": "5a2c511322715777f68b7e43e52c40b98f1b94338f0e78fd7901aaa15f8f19a3",
