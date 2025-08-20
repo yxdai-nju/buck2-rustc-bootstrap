@@ -25,6 +25,7 @@ rustc-main = { path = "rust/compiler/rustc", artifact = ["bin"], features = ["ll
 rustdoc-tool = { path = "rust/src/tools/rustdoc", artifact = ["bin"] }
 
 [patch.crates-io]
+compiler_builtins = { path = "rust/library/compiler-builtins/compiler-builtins" }
 rustc-std-workspace-alloc = { path = "rust/library/rustc-std-workspace-alloc" }
 rustc-std-workspace-core = { path = "rust/library/rustc-std-workspace-core" }
 rustc-std-workspace-std = { path = "rust/library/rustc-std-workspace-std" }

@@ -1,11 +1,11 @@
 buildscript.run = true
 cargo_env = ["CARGO_MANIFEST_DIR"]
 extra_deps = [
-    "toolchains//rust:sysroot[test]",
     ":pulldown-cmark-0.11.3",
     ":rustc_abi-0.0.0",
     ":rustc_ast-0.0.0",
     ":rustc_ast_pretty-0.0.0",
+    ":rustc_attr_data_structures-0.0.0",
     ":rustc_attr_parsing-0.0.0",
     ":rustc_data_structures-0.0.0",
     ":rustc_driver-0.0.0",
