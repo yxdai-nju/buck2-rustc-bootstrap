@@ -13,7 +13,7 @@ constraint(
 )
 
 constraint(
-    setting = "reindeer-universe",
+    setting = "workspace",
     values = [
         # Transitive dependencies of rust/library/.
         "library",
