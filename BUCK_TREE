@@ -7,7 +7,7 @@ set_cfg_modifiers([])
 
 set_cfg_constructor(
     aliases = struct(
-        # Reindeer universe (//constraints:reindeer-universe)
+        # Workspace (//constraints:workspace)
         compiler = "//constraints:compiler",
         library = "//constraints:library",
         # Bootstrap stage (//constraints:bootstrap-stage)

@@ -67,8 +67,8 @@ platform = rule(
         "transition": attrs.list(attrs.configuration_label(), default = [
             "//constraints:bootstrap-stage",
             "//constraints:opt-level",
-            "//constraints:reindeer-universe",
             "//constraints:sysroot-deps",
+            "//constraints:workspace",
         ]),
     },
     is_configuration_rule = True,
