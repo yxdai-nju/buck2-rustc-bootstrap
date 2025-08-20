@@ -33,6 +33,10 @@ constraint(
 )
 
 constraint(
+    setting = "build-script",
+)
+
+constraint(
     setting = "opt-level",
     values = [
         "opt-level=0",

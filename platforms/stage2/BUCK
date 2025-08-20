@@ -16,6 +16,7 @@ platform(
     name = "library-build-script",
     base = ":library",
     constraint_values = [
+        "//constraints:build-script",
         "//constraints:opt-level=0",
         "//constraints:sysroot-deps=implicit",
     ],
@@ -38,6 +39,7 @@ platform(
     name = "compiler-build-script",
     base = ":compiler",
     constraint_values = [
+        "//constraints:build-script",
         "//constraints:opt-level=0",
     ],
     visibility = ["PUBLIC"],

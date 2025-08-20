@@ -66,6 +66,7 @@ platform = rule(
         # this list are preserved.
         "transition": attrs.list(attrs.configuration_label(), default = [
             "//constraints:bootstrap-stage",
+            "//constraints:build-script",
             "//constraints:opt-level",
             "//constraints:sysroot-deps",
             "//constraints:workspace",
