@@ -8,13 +8,15 @@ These do not need to be run in any particular order.
   # Download crates.io dependencies
 $ buck2 uquery 'kind(crate_download, ...)' | xargs buck2 build
 
-  # Check standard library and rustc using bootstrap compiler in #[cfg(bootstrap)]
-$ buck2 build stage1:std[check]
+  # Typecheck stage1 compiler using bootstrap compiler with #[cfg(bootstrap)]
 $ buck2 build stage1:rustc[check]
 
   # Build and run stage1 compiler
 $ buck2 build stage1:rustc
 $ buck2 run stage1:rustc -- --version --verbose
+
+  # Typecheck standard library using stage1 compiler
+$ buck2 build stage1:std[check]
 
   # Build and run stage2 compiler in #[cfg(not(bootstrap))] using stage1 compiler
 $ buck2 build stage2:rustc
