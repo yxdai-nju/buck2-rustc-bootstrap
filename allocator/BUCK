@@ -17,7 +17,7 @@ rust_library(
     ],
     target_compatible_with = [
         "//constraints:library",
-        "//constraints:sysroot-deps=explicit",
+        "//constraints:build-script=false",
     ],
     visibility = ["PUBLIC"],
     deps = [

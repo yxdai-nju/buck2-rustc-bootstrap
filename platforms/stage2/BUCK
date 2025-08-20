@@ -4,10 +4,10 @@ platform(
     name = "library",
     base = "//platforms:host",
     constraint_values = [
+        "//constraints:build-script=false",
         "//constraints:library",
         "//constraints:opt-level=3",
         "//constraints:stage2",
-        "//constraints:sysroot-deps=explicit",
     ],
     visibility = ["PUBLIC"],
 )
@@ -16,8 +16,8 @@ platform(
     name = "library-build-script",
     base = ":library",
     constraint_values = [
+        "//constraints:build-script=true",
         "//constraints:opt-level=0",
-        "//constraints:sysroot-deps=implicit",
     ],
     visibility = ["PUBLIC"],
 )
@@ -26,10 +26,10 @@ platform(
     name = "compiler",
     base = "//platforms:host",
     constraint_values = [
+        "//constraints:build-script=false",
         "//constraints:compiler",
         "//constraints:opt-level=3",
         "//constraints:stage2",
-        "//constraints:sysroot-deps=implicit",
     ],
     visibility = ["PUBLIC"],
 )
@@ -38,6 +38,7 @@ platform(
     name = "compiler-build-script",
     base = ":compiler",
     constraint_values = [
+        "//constraints:build-script=true",
         "//constraints:opt-level=0",
     ],
     visibility = ["PUBLIC"],

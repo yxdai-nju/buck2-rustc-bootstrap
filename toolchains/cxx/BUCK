@@ -5,7 +5,7 @@ configuration_transition(
     name = "prune_cxx_configuration",
     discard_settings = [
         "rust//constraints:bootstrap-stage",
-        "rust//constraints:sysroot-deps",
+        "rust//constraints:build-script",
         "rust//constraints:workspace",
     ],
     label = "cxx",
