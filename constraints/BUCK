@@ -35,3 +35,11 @@ constraint(
         "opt-level=3",
     ],
 )
+
+config_setting(
+    name = "library-build-script",
+    constraint_values = [
+        ":library",
+        ":build-script=true",
+    ],
+)
