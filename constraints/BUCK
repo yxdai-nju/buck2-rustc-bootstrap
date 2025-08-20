@@ -1,10 +1,6 @@
 load(":defs.bzl", "constraint")
 
 constraint(
-    setting = "false",
-)
-
-constraint(
     setting = "sysroot-deps",
     values = [
         # Crate must declare explicit dependencies on standard library. This is
