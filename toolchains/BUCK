@@ -44,13 +44,15 @@ rust_toolchain(
     exec_compatible_with = [
         "rust//constraints:opt-level=0",
         "rust//constraints:build-script=true",
-    ] + select({
-        "rust//constraints:compiler": ["rust//constraints:compiler"],
-        "rust//constraints:library": ["rust//constraints:library"],
-    }) + select({
-        "rust//constraints:stage1": ["rust//constraints:stage1"],
-        "rust//constraints:stage2": ["rust//constraints:stage2"],
-    }),
+        select({
+            "rust//constraints:compiler": "rust//constraints:compiler",
+            "rust//constraints:library": "rust//constraints:library",
+        }),
+        select({
+            "rust//constraints:stage1": "rust//constraints:stage1",
+            "rust//constraints:stage2": "rust//constraints:stage2",
+        }),
+    ],
     rustc_flags = [
         "-Zunstable-options",
         select({
