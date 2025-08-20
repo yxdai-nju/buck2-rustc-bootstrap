@@ -72,17 +72,20 @@ rust_toolchain(
         "rust//constraints:library": None,
         "rust//constraints:library-build-script": "rust//stage0:sysroot",
         "rust//constraints:compiler": select({
-            "rust//constraints:stage1": dict(
-                alloc = "rust//stage1:alloc",
-                compiler_builtins = "rust//stage1:compiler_builtins",
-                core = "rust//stage1:core",
-                panic_abort = "rust//stage1:panic_abort",
-                panic_unwind = "rust//stage1:panic_unwind",
-                proc_macro = "rust//stage1:proc_macro",
-                rust_allocator = "rust//stage1:rust_allocator",
-                std = "rust//stage1:std",
-                test = "rust//stage1:test",
-            ),
+            "rust//constraints:stage1": select({
+                "rust//constraints:build-script=true": "rust//stage0:sysroot",
+                "rust//constraints:build-script=false": dict(
+                    alloc = "rust//stage1:alloc",
+                    compiler_builtins = "rust//stage1:compiler_builtins",
+                    core = "rust//stage1:core",
+                    panic_abort = "rust//stage1:panic_abort",
+                    panic_unwind = "rust//stage1:panic_unwind",
+                    proc_macro = "rust//stage1:proc_macro",
+                    rust_allocator = "rust//stage1:rust_allocator",
+                    std = "rust//stage1:std",
+                    test = "rust//stage1:test",
+                ),
+            }),
             "rust//constraints:stage2": dict(
                 alloc = "rust//stage2:alloc",
                 compiler_builtins = "rust//stage2:compiler_builtins",
