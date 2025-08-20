@@ -13,6 +13,12 @@ Stage0Info = provider(
     },
 )
 
+CiArtifactInfo = provider(
+    fields = {
+        "component": str,
+    },
+)
+
 def _stage0_parse_impl(
         actions: AnalysisActions,
         stage0_artifact: ArtifactValue) -> list[Provider]:
@@ -284,7 +290,10 @@ def _ci_artifact_impl(ctx: AnalysisContext) -> list[Provider]:
         ),
     )
 
-    return [DefaultInfo(default_output = download)]
+    return [
+        DefaultInfo(default_output = download),
+        CiArtifactInfo(component = ctx.attrs.component),
+    ]
 
 ci_artifact = rule(
     impl = _ci_artifact_impl,
@@ -300,6 +309,7 @@ ci_artifact = rule(
 
 def _ci_llvm_impl(ctx: AnalysisContext) -> list[Provider]:
     rust_dev = ctx.attrs.rust_dev[DefaultInfo].default_outputs[0]
+    component = ctx.attrs.rust_dev[CiArtifactInfo].component
 
     contents, _ = unarchive(
         ctx = ctx,
@@ -307,7 +317,7 @@ def _ci_llvm_impl(ctx: AnalysisContext) -> list[Provider]:
         output_name = "ci-llvm",
         ext_type = "tar.xz",
         excludes = [],
-        strip_prefix = "rust-dev-nightly-{}/rust-dev".format(targets.exec_triple(ctx)),
+        strip_prefix = "{}-{}/rust-dev".format(component, targets.exec_triple(ctx)),
         exec_deps = ctx.attrs._exec_deps[HttpArchiveExecDeps],
         prefer_local = False,
         sub_targets = {},
@@ -318,7 +328,7 @@ def _ci_llvm_impl(ctx: AnalysisContext) -> list[Provider]:
 ci_llvm = rule(
     impl = _ci_llvm_impl,
     attrs = {
-        "rust_dev": attrs.dep(),
+        "rust_dev": attrs.dep(providers = [DefaultInfo, CiArtifactInfo]),
         "_exec_deps": attrs.default_only(attrs.exec_dep(providers = [HttpArchiveExecDeps], default = "//platforms/exec:http_archive")),
         "_exec_os_type": attrs.default_only(attrs.dep(providers = [OsLookup], default = "//platforms/exec:os_lookup")),
     },
