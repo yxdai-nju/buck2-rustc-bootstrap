@@ -14,8 +14,6 @@ execution_platforms(
     name = "execution",
     platforms = [
         ":host",
-        "//platforms/stage1:library",
-        "//platforms/stage1:library-build-script",
         "//platforms/stage1:compiler",
         "//platforms/stage1:compiler-build-script",
         "//platforms/stage2:library",
