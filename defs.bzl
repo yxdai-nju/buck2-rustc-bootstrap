@@ -51,9 +51,10 @@ def rust_bootstrap_library(
         proc_macro = False,
         rustc_flags = [],
         srcs = [],
+        target_compatible_with = None,
         visibility = None,
         **kwargs):
-    target_compatible_with = _target_constraints(crate_root)
+    target_compatible_with = target_compatible_with or _target_constraints(crate_root)
 
     if name.endswith("-0.0.0"):
         versioned_name = name
