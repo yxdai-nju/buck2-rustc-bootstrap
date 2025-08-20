@@ -1,0 +1,24 @@
+name: Reindeer
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule: [cron: "40 1 * * *"]
+
+permissions:
+  contents: read
+
+jobs:
+  reindeer:
+    name: Reindeer
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/install@reindeer
+      - run: ./submodule_init.sh
+      - run: reindeer buckify
+      - name: Check reindeer-generated BUCK file up to date
+        run: git diff --exit-code

@@ -21,9 +21,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/install-buck2@latest
-      - run: git submodule update --init rust
-      - run: git submodule update --init library/backtrace
-        working-directory: rust
-      - run: git submodule update --init library/stdarch
-        working-directory: rust
+      - run: ./submodule_init.sh
       - run: buck2 run stage2:rustc -- --version --verbose
