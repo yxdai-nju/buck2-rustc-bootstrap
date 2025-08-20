@@ -40,7 +40,6 @@ extra_srcs = [
     "html/static/**",
     "html/templates/**/*.html",
 ]
-overlay = "overlay" # https://github.com/rust-lang/rust/pull/140627
 
 [env]
 DOC_RUST_LANG_ORG_CHANNEL = "https://doc.rust-lang.org/stable"

@@ -9615,12 +9615,10 @@ cxx_bootstrap_library(
 
 rust_bootstrap_library(
     name = "rustc_log-0.0.0",
+    srcs = ["rust/compiler/rustc_log/src/lib.rs"],
     crate = "rustc_log",
     crate_root = "rust/compiler/rustc_log/src/lib.rs",
     edition = "2024",
-    mapped_srcs = {
-        "fixups/rustc_log/overlay/src/lib.rs": "rust/compiler/rustc_log/src/lib.rs",
-    },
     visibility = [],
     deps = [
         ":tracing-0.1.37",
@@ -11595,6 +11593,7 @@ rust_bootstrap_library(
         "rust/src/librustdoc/json/ids.rs",
         "rust/src/librustdoc/json/import_finder.rs",
         "rust/src/librustdoc/json/mod.rs",
+        "rust/src/librustdoc/lib.rs",
         "rust/src/librustdoc/lint.rs",
         "rust/src/librustdoc/markdown.rs",
         "rust/src/librustdoc/passes/calculate_doc_coverage.rs",
@@ -11629,9 +11628,6 @@ rust_bootstrap_library(
         "CARGO_MANIFEST_DIR": "rust/src/librustdoc",
         "DOC_RUST_LANG_ORG_CHANNEL": "https://doc.rust-lang.org/stable",
         "OUT_DIR": "$(location :rustdoc-0.0.0-build-script-run[out_dir])",
-    },
-    mapped_srcs = {
-        "fixups/rustdoc/overlay/lib.rs": "rust/src/librustdoc/lib.rs",
     },
     rustc_flags = ["@$(location :rustdoc-0.0.0-build-script-run[rustc_flags])"],
     visibility = [],
@@ -11814,6 +11810,7 @@ rust_bootstrap_binary(
         "rust/src/librustdoc/json/ids.rs",
         "rust/src/librustdoc/json/import_finder.rs",
         "rust/src/librustdoc/json/mod.rs",
+        "rust/src/librustdoc/lib.rs",
         "rust/src/librustdoc/lint.rs",
         "rust/src/librustdoc/markdown.rs",
         "rust/src/librustdoc/passes/calculate_doc_coverage.rs",
@@ -11846,9 +11843,6 @@ rust_bootstrap_binary(
     edition = "2024",
     env = {
         "CARGO_MANIFEST_DIR": "rust/src/librustdoc",
-    },
-    mapped_srcs = {
-        "fixups/rustdoc/overlay/lib.rs": "rust/src/librustdoc/lib.rs",
     },
     visibility = [],
     deps = [
