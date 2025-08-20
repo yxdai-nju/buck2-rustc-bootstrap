@@ -37,8 +37,8 @@ rust_toolchain(
         "rust//constraints:stage1": "rust//stage0:rustc",
         "rust//constraints:stage2": select({
             "rust//constraints:library": select({
-                "DEFAULT": "rust//stage1:rustc",
-                "rust//constraints:build-script": "rust//stage0:rustc",
+                "rust//constraints:build-script=false": "rust//stage1:rustc",
+                "rust//constraints:build-script=true": "rust//stage0:rustc",
             }),
             "rust//constraints:compiler": "rust//stage1:rustc",
         }),
@@ -72,8 +72,8 @@ rust_toolchain(
     }),
     sysroot = select({
         "rust//constraints:library": select({
-            "DEFAULT": None,
-            "rust//constraints:build-script": "rust//stage0:sysroot",
+            "rust//constraints:build-script=false": None,
+            "rust//constraints:build-script=true": "rust//stage0:sysroot",
         }),
         "rust//constraints:compiler": select({
             "rust//constraints:stage1": dict(

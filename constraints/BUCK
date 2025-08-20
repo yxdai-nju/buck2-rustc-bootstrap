@@ -34,6 +34,10 @@ constraint(
 
 constraint(
     setting = "build-script",
+    values = [
+        "build-script=false",
+        "build-script=true",
+    ],
 )
 
 constraint(
