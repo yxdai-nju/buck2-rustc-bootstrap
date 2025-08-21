@@ -81,7 +81,7 @@ def _sysroot_impl(ctx: AnalysisContext) -> list[Provider]:
     sysroot = {}
     for dep in rust_deps:
         strategy = dep.info.strategies[LinkStrategy("static_pic")]
-        dep_metadata_kind = MetadataKind("full")
+        dep_metadata_kind = MetadataKind("link")
         artifact = strategy.outputs[dep_metadata_kind]
         path = "lib/rustlib/{}/lib/{}".format(rustc_target_triple, artifact.basename)
         sysroot[path] = artifact
