@@ -90,7 +90,7 @@ def _sysroot_impl(ctx: AnalysisContext) -> list[Provider]:
             path = "lib/rustlib/{}/lib/{}".format(rustc_target_triple, artifact.basename)
             sysroot[path] = artifact
 
-    sysroot = ctx.actions.symlinked_dir("sysroot", sysroot)
+    sysroot = ctx.actions.copied_dir("sysroot", sysroot)
     return [DefaultInfo(default_output = sysroot)]
 
 sysroot = rule(
