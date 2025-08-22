@@ -53,7 +53,7 @@ pub static __rust_alloc_error_handler_should_panic: u8 = 1;
 
 #[unsafe(no_mangle)]
 #[linkage = "weak"]
-pub static __rust_no_alloc_shim_is_unstable: u8 = 1;
+pub unsafe fn __rust_no_alloc_shim_is_unstable_v2() {}
 
 #[unsafe(no_mangle)]
 #[cfg_attr(not(target_os = "ios"), linkage = "weak")]
