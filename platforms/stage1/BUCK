@@ -1,6 +1,6 @@
-load("//platforms:defs.bzl", "platform")
+load("//platforms:defs.bzl", "execution_platform", "target_platform")
 
-platform(
+target_platform(
     name = "library",
     base = "//platforms:host",
     constraint_values = [
@@ -12,7 +12,7 @@ platform(
     visibility = ["PUBLIC"],
 )
 
-platform(
+execution_platform(
     name = "library-build-script",
     base = ":library",
     constraint_values = [
@@ -22,7 +22,7 @@ platform(
     visibility = ["PUBLIC"],
 )
 
-platform(
+target_platform(
     name = "compiler",
     base = "//platforms:host",
     constraint_values = [
@@ -34,7 +34,7 @@ platform(
     visibility = ["PUBLIC"],
 )
 
-platform(
+execution_platform(
     name = "compiler-build-script",
     base = ":compiler",
     constraint_values = [
