@@ -1,2 +1,8 @@
 buildscript.run = false
 linker_flags = ["-Wl,-rpath,$ORIGIN/../lib"]
+omit_deps = [
+    "rustc_codegen_ssa",
+    "rustc_driver_impl",
+    "rustc_smir",
+    "stable_mir",
+]

@@ -22,6 +22,7 @@ test = { path = "rust/library/test" }
 allocator-api2 = { version = "0.2", default-features = false }
 clippy = { path = "rust/src/tools/clippy", artifact = ["bin"] }
 rustc-main = { path = "rust/compiler/rustc", artifact = ["bin"], features = ["llvm"] }
+rustc_driver_impl = { path = "rust/compiler/rustc_driver_impl" }
 rustdoc-tool = { path = "rust/src/tools/rustdoc", artifact = ["bin"] }
 
 [patch.crates-io]

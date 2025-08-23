@@ -241,6 +241,7 @@ dependencies = [
  "panic_unwind",
  "proc_macro",
  "rustc-main",
+ "rustc_driver_impl",
  "rustdoc-tool",
  "std",
  "test",

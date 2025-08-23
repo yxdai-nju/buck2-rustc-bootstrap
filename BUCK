@@ -7689,12 +7689,6 @@ rust_bootstrap_binary(
         "rustc_driver": ":rustc_driver-0.0.0",
     },
     visibility = [],
-    deps = [
-        ":rustc_codegen_ssa-0.0.0",
-        ":rustc_driver_impl-0.0.0",
-        ":rustc_smir-0.0.0",
-        ":stable_mir-0.1.0-preview",
-    ],
 )
 
 crate_download(
@@ -8690,6 +8684,12 @@ rust_bootstrap_library(
         ":thin-vec-0.2.14",
         ":tracing-0.1.37",
     ],
+)
+
+rust_bootstrap_alias(
+    name = "rustc_driver_impl",
+    actual = ":rustc_driver_impl-0.0.0",
+    visibility = ["PUBLIC"],
 )
 
 rust_bootstrap_library(
