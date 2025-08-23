@@ -12,6 +12,9 @@ config = prelude
 fbcode = none
 fbsource = none
 
+[buck2]
+digest_algorithms = SHA256
+
 [project]
 ignore = .git, rust/build, rust/node_modules, rust/target
 
