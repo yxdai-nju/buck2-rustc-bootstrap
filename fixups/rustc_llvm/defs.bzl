@@ -1,6 +1,8 @@
 def _llvm_config_impl(ctx: AnalysisContext) -> list[Provider]:
     llvm = ctx.attrs.llvm[DefaultInfo].default_outputs[0]
-    llvm_config = llvm.project("bin/llvm-config")
+    llvm_bin = llvm.project("bin")
+    llvm_lib = llvm.project("lib")
+    llvm_config = llvm_bin.project("llvm-config").with_associated_artifacts([llvm_lib])
     return [
         DefaultInfo(default_output = llvm_config),
         RunInfo(llvm_config),
