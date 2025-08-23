@@ -54,18 +54,16 @@ $ buck2 build :rustc_ast[profile][llvm_passes] --show-output
 
 The following platforms are available for use with `--target-platforms`:
 
-- `//platforms/stage1:library`
-- `//platforms/stage1:library-build-script`
-- `//platforms/stage1:compiler`
-- `//platforms/stage1:compiler-build-script`
-- `//platforms/stage2:library`
-- `//platforms/stage2:library-build-script`
-- `//platforms/stage2:compiler`
-- `//platforms/stage2:compiler-build-script`
-
-The "stage1" platforms compile Rust code using stage0 downloaded rustc and
-rustdoc and clippy. The "stage2" platforms use the stage1 built-from-source
-tools.
+| target platform | uses rustc, rustdoc, clippy |
+|---|---|
+| `//platforms/stage1:compiler-build-script` | downloaded stage0 |
+| `//platforms/stage1:compiler` | downloaded stage0 |
+| `//platforms/stage1:library-build-script` | downloaded stage0 |
+| `//platforms/stage1:library` | built-from-source stage1 |
+| `//platforms/stage2:compiler-build-script` | built-from-source stage1 |
+| `//platforms/stage2:compiler` | built-from-source stage1 |
+| `//platforms/stage2:library-build-script` | built-from-source stage1 |
+| `//platforms/stage2:library` | built-from-source stage2 |
 
 The "build-script" platforms compile without optimization. These are used for
 procedural macros and build.rs. The non-build-script platforms compile with a
