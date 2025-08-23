@@ -52,7 +52,7 @@ $ buck2 build :rustc_ast[profile][llvm_passes] --show-output
 
 ## Configurations
 
-The following execution platforms are available for use with `--target-platforms`:
+The following platforms are available for use with `--target-platforms`:
 
 - `//platforms/stage1:library`
 - `//platforms/stage1:library-build-script`

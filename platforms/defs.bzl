@@ -44,7 +44,9 @@ def _platform_impl(ctx: AnalysisContext) -> list[Provider]:
             label = str(platform_label),
             configuration = configuration,
         ),
-        ExecutionPlatformInfo(
+        TransitionInfo(impl = transition_impl),
+    ] + (
+        [ExecutionPlatformInfo(
             label = platform_label,
             configuration = configuration,
             executor_config = CommandExecutorConfig(
@@ -52,24 +54,35 @@ def _platform_impl(ctx: AnalysisContext) -> list[Provider]:
                 remote_enabled = False,
                 use_windows_path_separators = use_windows_path_separators,
             ),
-        ),
-        TransitionInfo(impl = transition_impl),
-    ]
+        )] if ctx.attrs.execution_platform else []
+    )
 
-platform = rule(
+_platform_attrs = {
+    "base": attrs.option(attrs.dep(providers = [PlatformInfo]), default = None),
+    "constraint_values": attrs.list(attrs.configuration_label(), default = []),
+    # Configuration settings in this list are overwritten during a
+    # transition to this platform, whereas configuration settings not in
+    # this list are preserved.
+    "transition": attrs.list(attrs.configuration_label(), default = [
+        "//constraints:bootstrap-stage",
+        "//constraints:build-script",
+        "//constraints:opt-level",
+        "//constraints:workspace",
+    ]),
+}
+
+target_platform = rule(
     impl = _platform_impl,
-    attrs = {
-        "base": attrs.option(attrs.dep(providers = [PlatformInfo]), default = None),
-        "constraint_values": attrs.list(attrs.configuration_label(), default = []),
-        # Configuration settings in this list are overwritten during a
-        # transition to this platform, whereas configuration settings not in
-        # this list are preserved.
-        "transition": attrs.list(attrs.configuration_label(), default = [
-            "//constraints:bootstrap-stage",
-            "//constraints:build-script",
-            "//constraints:opt-level",
-            "//constraints:workspace",
-        ]),
+    attrs = _platform_attrs | {
+        "execution_platform": attrs.default_only(attrs.bool(default = False)),
+    },
+    is_configuration_rule = True,
+)
+
+execution_platform = rule(
+    impl = _platform_impl,
+    attrs = _platform_attrs | {
+        "execution_platform": attrs.default_only(attrs.bool(default = True)),
     },
     is_configuration_rule = True,
 )
