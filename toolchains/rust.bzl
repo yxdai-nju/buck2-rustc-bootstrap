@@ -9,7 +9,6 @@ load("//target:target_triple.bzl", "TargetTriple")
 def _rust_toolchain_impl(ctx: AnalysisContext) -> list[Provider]:
     sysroot_path = None
     explicit_sysroot_deps = None
-    sub_targets = {}
     if ctx.attrs.sysroot == None:
         explicit_sysroot_deps = RustExplicitSysrootDeps(
             core = None,
@@ -20,10 +19,6 @@ def _rust_toolchain_impl(ctx: AnalysisContext) -> list[Provider]:
             others = [],
         )
     elif isinstance(ctx.attrs.sysroot, dict):
-        sub_targets = {
-            name: list(dep.providers)
-            for name, dep in ctx.attrs.sysroot.items()
-        }
         explicit_sysroot_deps = RustExplicitSysrootDeps(
             core = ctx.attrs.sysroot.pop("core", None),
             proc_macro = ctx.attrs.sysroot.pop("proc_macro", None),
@@ -36,7 +31,7 @@ def _rust_toolchain_impl(ctx: AnalysisContext) -> list[Provider]:
         sysroot_path = ctx.attrs.sysroot[DefaultInfo].default_outputs[0]
 
     return [
-        DefaultInfo(sub_targets = sub_targets),
+        DefaultInfo(),
         RustToolchainInfo(
             advanced_unstable_linking = True,
             clippy_driver = ctx.attrs.clippy_driver[RunInfo],
