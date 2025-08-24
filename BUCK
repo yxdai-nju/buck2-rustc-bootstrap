@@ -7688,6 +7688,7 @@ rust_bootstrap_binary(
     named_deps = {
         "rustc_driver": ":rustc_driver-0.0.0",
     },
+    rustc_flags = ["-Zcrate-attr=allow(unfulfilled_lint_expectations)"],
     visibility = [],
 )
 
