@@ -1,12 +1,12 @@
 use std::alloc::{GlobalAlloc, Layout, System, __default_lib_allocator};
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rust_alloc(size: usize, align: usize) -> *mut u8 {
     unsafe { __default_lib_allocator::__rdl_alloc(size, align) }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rdl_alloc(size: usize, align: usize) -> *mut u8 {
     unsafe {
@@ -15,13 +15,13 @@ pub unsafe fn __rdl_alloc(size: usize, align: usize) -> *mut u8 {
     }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rust_alloc_zeroed(size: usize, align: usize) -> *mut u8 {
     unsafe { __default_lib_allocator::__rdl_alloc_zeroed(size, align) }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rdl_alloc_zeroed(size: usize, align: usize) -> *mut u8 {
     unsafe {
@@ -30,7 +30,7 @@ pub unsafe fn __rdl_alloc_zeroed(size: usize, align: usize) -> *mut u8 {
     }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rust_dealloc(ptr: *mut u8, size: usize, align: usize) {
     unsafe {
@@ -38,7 +38,7 @@ pub unsafe fn __rust_dealloc(ptr: *mut u8, size: usize, align: usize) {
     }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rdl_dealloc(ptr: *mut u8, size: usize, align: usize) {
     unsafe {
@@ -47,7 +47,7 @@ pub unsafe fn __rdl_dealloc(ptr: *mut u8, size: usize, align: usize) {
     }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rust_realloc(
     ptr: *mut u8,
@@ -58,7 +58,7 @@ pub unsafe fn __rust_realloc(
     unsafe { __default_lib_allocator::__rdl_realloc(ptr, old_size, align, new_size) }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rdl_realloc(
     ptr: *mut u8,

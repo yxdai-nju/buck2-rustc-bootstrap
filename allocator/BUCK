@@ -15,13 +15,13 @@ rust_library(
         "-Clink-arg=-fvisibility=hidden",
         "-Ainternal_features",
     ],
-    target_compatible_with = [
-        "//constraints:library",
-        "//constraints:build-script=false",
-    ],
     visibility = ["PUBLIC"],
-    deps = [
-        "//:alloc",
-        "//:std",
-    ],
+    deps = select({
+        "rust//constraints:library": [
+            "//:alloc",
+            "//:std",
+        ],
+        "rust//constraints:library-build-script": [],
+        "rust//constraints:compiler": [],
+    }),
 )
