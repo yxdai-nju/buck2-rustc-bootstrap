@@ -3,9 +3,6 @@
 omit_deps = ["allocator_api2"]
 extra_deps = ["//allocator:allocator-api2"]
 
-# Undo https://github.com/rust-lang/rust/pull/138425 for hashbrown >=0.15.3 and rustc <1.87.0
-features = ["raw-entry"]
-
 [[rustc_flags_select]]
 "//constraints:compiler" = []
 "//constraints:library" = ["-Zforce-unstable-if-unmarked"]
