@@ -175,7 +175,7 @@ def _stage0_executable_impl(ctx: AnalysisContext) -> list[Provider]:
             ],
             category = "overlay",
         )
-        command = overlay.project("bin").project(ctx.label.name)
+        command = overlay.project("bin").project(ctx.label.name).with_associated_artifacts([overlay])
     else:
         command = cmd_args(
             ctx.attrs._wrapper[RunInfo],

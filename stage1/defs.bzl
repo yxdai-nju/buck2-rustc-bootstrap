@@ -32,7 +32,7 @@ def _rust_tool_impl(ctx: AnalysisContext) -> list[Provider]:
         },
     )
 
-    tool = dist.project(bin_path)
+    tool = dist.project(bin_path).with_associated_artifacts([dist])
 
     return [
         DefaultInfo(
