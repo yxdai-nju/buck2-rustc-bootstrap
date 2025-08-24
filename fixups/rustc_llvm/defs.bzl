@@ -17,12 +17,9 @@ def _rustc_cfg_llvm_component_impl(
         actions: AnalysisActions,
         llvm_config_components: ArtifactValue,
         output: OutputArtifact) -> list[Provider]:
-    discard = set(["csky"])  # broken?
-
     cfg = []
     for component in llvm_config_components.read_string().split():
-        if component not in discard:
-            cfg.append("--cfg=llvm_component=\"{}\"\n".format(component))
+        cfg.append("--cfg=llvm_component=\"{}\"\n".format(component))
 
     actions.write(output, "".join(cfg))
     return []
