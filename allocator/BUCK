@@ -25,13 +25,3 @@ rust_library(
         "//:std",
     ],
 )
-
-alias(
-    name = "allocator-api2",
-    actual = select({
-        "//constraints:library": None,
-        "//constraints:compiler": "//:allocator-api2",
-    }),
-    default_target_platform = "//platforms/stage1:library",
-    visibility = ["//:"],
-)

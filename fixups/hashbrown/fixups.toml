@@ -1,8 +1,3 @@
-# Hashbrown does not really depend on allocator-api2 but `cargo metadata` is
-# claiming that it is, likely because of https://github.com/rust-lang/cargo/issues/10801
-omit_deps = ["allocator_api2"]
-extra_deps = ["//allocator:allocator-api2"]
-
 [[rustc_flags_select]]
 "//constraints:compiler" = []
 "//constraints:library" = ["-Zforce-unstable-if-unmarked"]
