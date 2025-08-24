@@ -13,4 +13,3 @@ preprocessor_flags = [
     "--config=$(location //fixups/rustc_llvm:preprocessor-flags)",
 ]
 deps = ["//fixups/rustc_llvm:llvm"]
-preferred_linkage = "static"

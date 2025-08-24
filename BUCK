@@ -10129,7 +10129,6 @@ cxx_bootstrap_library(
         "rust/compiler/rustc_llvm/llvm-wrapper/SuppressLLVMWarnings.h",
     ],
     compiler_flags = ["--config=$(location //fixups/rustc_llvm:cxx-flags)"],
-    preferred_linkage = "static",
     preprocessor_flags = [
         "-I$(location //stage0:ci_llvm)/include",
         "--config=$(location //fixups/rustc_llvm:preprocessor-flags)",
