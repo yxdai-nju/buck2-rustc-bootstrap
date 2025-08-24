@@ -4156,7 +4156,6 @@ rust_bootstrap_library(
         "//constraints:library": ["-Zforce-unstable-if-unmarked"],
     }),
     visibility = [],
-    deps = ["//allocator:allocator-api2"],
 )
 
 crate_download(
