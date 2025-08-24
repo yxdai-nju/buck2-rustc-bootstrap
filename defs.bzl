@@ -139,6 +139,7 @@ def cxx_bootstrap_library(
         name = "{}-compile".format(name),
         compatible_with = compatible_with,
         deps = deps + extra_deps,
+        preferred_linkage = "static",
         **kwargs
     )
 
