@@ -1,3 +1,5 @@
+load("//remote_execution:config.bzl", "executor_config")
+
 def _platform_impl(ctx: AnalysisContext) -> list[Provider]:
     platform_label = ctx.label.raw_target()
     constraints = {}
@@ -9,11 +11,6 @@ def _platform_impl(ctx: AnalysisContext) -> list[Provider]:
     for dep in ctx.attrs.constraint_values:
         for label, value in dep[ConfigurationInfo].constraints.items():
             constraints[label] = value
-
-    use_windows_path_separators = False
-    for value in constraints.values():
-        if str(value.label) == "prelude//os/constraints:windows":
-            use_windows_path_separators = True
 
     configuration = ConfigurationInfo(
         constraints = constraints,
@@ -49,11 +46,7 @@ def _platform_impl(ctx: AnalysisContext) -> list[Provider]:
         [ExecutionPlatformInfo(
             label = platform_label,
             configuration = configuration,
-            executor_config = CommandExecutorConfig(
-                local_enabled = True,
-                remote_enabled = False,
-                use_windows_path_separators = use_windows_path_separators,
-            ),
+            executor_config = executor_config(configuration),
         )] if ctx.attrs.execution_platform else []
     )
 
