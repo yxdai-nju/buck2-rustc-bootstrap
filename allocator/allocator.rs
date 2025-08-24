@@ -1,5 +1,5 @@
 // Allocations in Rust code invoke `__rust_alloc` and its kin under the hood.
-// These functions arren't actually implemented anywhere - instead, the compiler
+// These functions aren't actually implemented anywhere - instead, the compiler
 // will in certain cases inject an "allocator shim" implementation for them
 // which calls the corresponding *actual* implementation:
 // - `__rdl_*` by default
@@ -12,7 +12,7 @@
 // - when building *the first* `dylib` crate in a dependency graph
 //
 // There are use cases where none of those criteria are satisfied yet we still
-// need an allocator. For example, in a diamon dependency scenario:
+// need an allocator. For example, in a diamond dependency scenario:
 //
 //                              foo.cpp  <- top-level target
 //                              /    \
