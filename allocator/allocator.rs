@@ -38,6 +38,7 @@
 
 #![feature(alloc_internals)]
 #![feature(linkage)]
+#![feature(rustc_attrs)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
 #[cfg(feature = "std")]
@@ -47,21 +48,22 @@ extern crate alloc;
 
 use alloc::alloc::__alloc_error_handler;
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
+#[allow(non_upper_case_globals)]
 pub static __rust_alloc_error_handler_should_panic: u8 = 1;
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rust_no_alloc_shim_is_unstable_v2() {}
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[cfg_attr(not(target_os = "ios"), linkage = "weak")]
 pub unsafe fn __rust_alloc_error_handler(size: usize, align: usize) -> ! {
     unsafe { __alloc_error_handler::__rdl_oom(size, align) }
 }
 
-#[unsafe(no_mangle)]
+#[rustc_std_internal_symbol]
 #[linkage = "weak"]
 pub unsafe fn __rg_oom(size: usize, align: usize) -> ! {
     unsafe { __alloc_error_handler::__rdl_oom(size, align) }
