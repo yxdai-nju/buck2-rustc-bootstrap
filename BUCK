@@ -3959,10 +3959,7 @@ rust_bootstrap_library(
     crate = "hashbrown",
     crate_root = "hashbrown-0.15.5.crate/src/lib.rs",
     edition = "2021",
-    features = [
-        "nightly",
-        "raw-entry",
-    ],
+    features = ["nightly"],
     platform = {
         "linux-arm64-compiler": dict(
             features = [
@@ -3971,6 +3968,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
@@ -3997,6 +3995,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
@@ -4023,6 +4022,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
@@ -4049,6 +4049,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
@@ -4075,6 +4076,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
@@ -4101,6 +4103,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
@@ -4127,6 +4130,7 @@ rust_bootstrap_library(
                 "default-hasher",
                 "equivalent",
                 "inline-more",
+                "raw-entry",
             ],
             deps = [
                 ":allocator-api2-0.2.21",
