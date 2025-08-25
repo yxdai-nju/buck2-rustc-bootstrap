@@ -16,23 +16,25 @@ SYSROOT_CRATES = [
 ]
 
 def _rust_tool_impl(ctx: AnalysisContext) -> list[Provider]:
-    llvm = ctx.actions.symlinked_dir(
-        "llvm",
-        {
-            "lib": ctx.attrs.llvm[DefaultInfo].default_outputs[0].project("lib"),
-        },
+    llvm = ctx.attrs.llvm[DefaultInfo].default_outputs[0]
+    exe = ctx.attrs.exe[DefaultInfo].default_outputs[0]
+
+    dist = ctx.actions.declare_output("toolchain", dir = True)
+    ctx.actions.run(
+        [
+            ctx.attrs._frob[RunInfo],
+            cmd_args(llvm, format = "llvm={}", relative_to = dist),
+            cmd_args(exe, format = "exe={}"),
+            cmd_args(dist.as_output(), format = "dist={}"),
+            ["--mkdir", "{dist}"],
+            ["--mkdir", "{dist}/bin"],
+            ["--cp", "{exe}", "{dist}/bin/" + ctx.label.name],
+            ["--symlink", "{llvm}/lib", "{dist}/lib"],
+        ],
+        category = "dist",
     )
 
-    bin_path = "bin/{}".format(ctx.label.name)
-    dist = ctx.actions.copied_dir(
-        "toolchain",
-        {
-            bin_path: ctx.attrs.exe[DefaultInfo].default_outputs[0],
-            "lib": llvm.project("lib"),
-        },
-    )
-
-    tool = dist.project(bin_path).with_associated_artifacts([dist])
+    tool = dist.project("bin").project(ctx.label.name).with_associated_artifacts([dist])
 
     return [
         DefaultInfo(
@@ -50,6 +52,7 @@ rust_tool = rule(
     attrs = {
         "exe": attrs.dep(),
         "llvm": attrs.dep(),
+        "_frob": attrs.default_only(attrs.exec_dep(providers = [RunInfo], default = "//stage0:frob")),
     },
     supports_incoming_transition = True,
 )
