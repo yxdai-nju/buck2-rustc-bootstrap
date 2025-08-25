@@ -92,16 +92,6 @@ ci_llvm(
 )
 
 python_bootstrap_binary(
-    name = "stage0_executable",
-    main = "stage0_executable.py",
-)
-
-python_bootstrap_binary(
-    name = "stage0_overlay",
-    main = "stage0_overlay.py",
-)
-
-python_bootstrap_binary(
-    name = "stage0_sysroot",
-    main = "stage0_sysroot.py",
+    name = "frob",
+    main = "frob.py",
 )

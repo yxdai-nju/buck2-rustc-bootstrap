@@ -167,21 +167,30 @@ def _stage0_executable_impl(ctx: AnalysisContext) -> list[Provider]:
         overlay = ctx.actions.declare_output("overlay", dir = True)
         ctx.actions.run(
             [
-                ctx.attrs._overlay[RunInfo],
-                cmd_args(dist, format = "--dist={}"),
-                "--exe={}".format(ctx.label.name),
-                cmd_args(libdir, format = "--libdir={}", relative_to = overlay),
-                cmd_args(overlay.as_output(), format = "--overlay={}"),
+                ctx.attrs._frob[RunInfo],
+                cmd_args(dist, format = "dist={}"),
+                "exe={}".format(ctx.label.name),
+                cmd_args(libdir, format = "libdir={}", relative_to = overlay),
+                cmd_args(overlay.as_output(), format = "overlay={}"),
+                ["--read", "component={dist}/?/components"],
+                ["--mkdir", "{overlay}"],
+                ["--mkdir", "{overlay}/bin"],
+                ["--cp", "{dist}/?/{component}/bin/{exe}", "{overlay}/bin"],
+                ["--basename", "toplevel={overlay}/{libdir}/?"],
+                ["--read", "component={overlay}/{libdir}/{toplevel}/components"],
+                ["--symlink", "{libdir}/{toplevel}/{component}/lib", "{overlay}/lib"],
             ],
             category = "overlay",
         )
         command = overlay.project("bin").project(ctx.label.name).with_associated_artifacts([overlay])
     else:
         command = cmd_args(
-            ctx.attrs._wrapper[RunInfo],
-            cmd_args(dist, format = "--dist={}"),
-            "--exe={}".format(ctx.label.name),
-            ["--env={}={}".format(k, v) for k, v in ctx.attrs.env.items()],
+            ctx.attrs._frob[RunInfo],
+            cmd_args(dist, format = "dist={}"),
+            "exe={}".format(ctx.label.name),
+            ["--read", "component={dist}/?/components"],
+            ["--exec", "{dist}/?/{component}/bin/{exe}"],
+            ["{}={}".format(k, v) for k, v in ctx.attrs.env.items()],
             "--",
         )
 
@@ -196,8 +205,7 @@ stage0_executable = rule(
         "dist": attrs.dep(),
         "env": attrs.dict(key = attrs.string(), value = attrs.string(), default = {}),
         "libdir": attrs.option(attrs.dep(), default = None),
-        "_overlay": attrs.default_only(attrs.exec_dep(providers = [RunInfo], default = "//stage0:stage0_overlay")),
-        "_wrapper": attrs.default_only(attrs.exec_dep(providers = [RunInfo], default = "//stage0:stage0_executable")),
+        "_frob": attrs.default_only(attrs.exec_dep(providers = [RunInfo], default = "//stage0:frob")),
     },
     supports_incoming_transition = True,
 )
@@ -220,10 +228,13 @@ def _stage0_sysroot_impl(ctx: AnalysisContext) -> list[Provider]:
     sysroot = ctx.actions.declare_output("sysroot")
     ctx.actions.run(
         [
-            ctx.attrs._wrapper[RunInfo],
-            cmd_args(contents, format = "--dist={}"),
-            cmd_args(contents, format = "--relative={}").relative_to(sysroot, parent = 1),
-            cmd_args(sysroot.as_output(), format = "--symlink={}"),
+            ctx.attrs._frob[RunInfo],
+            cmd_args(contents, format = "dist={}"),
+            cmd_args(contents, format = "relative={}").relative_to(sysroot, parent = 1),
+            cmd_args(sysroot.as_output(), format = "symlink={}"),
+            ["--basename", "toplevel={dist}/?"],
+            ["--read", "component={dist}/{toplevel}/components"],
+            ["--symlink", "{relative}/{toplevel}/{component}", "{symlink}"],
         ],
         category = "sysroot",
     )
@@ -235,7 +246,7 @@ stage0_sysroot = rule(
     attrs = {
         "dist": attrs.dep(),
         "_exec_deps": attrs.default_only(attrs.exec_dep(providers = [HttpArchiveExecDeps], default = "//platforms/exec:http_archive")),
-        "_wrapper": attrs.default_only(attrs.exec_dep(providers = [RunInfo], default = "//stage0:stage0_sysroot")),
+        "_frob": attrs.default_only(attrs.exec_dep(providers = [RunInfo], default = "//stage0:frob")),
     },
     supports_incoming_transition = True,
 )
