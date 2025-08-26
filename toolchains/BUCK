@@ -1,10 +1,10 @@
 load("@prelude//tests:test_toolchain.bzl", "noop_test_toolchain")
-load("@prelude//toolchains:python.bzl", "system_python_bootstrap_toolchain")
 load("@prelude//toolchains:remote_test_execution.bzl", "remote_test_execution_toolchain")
 load(":cxx.bzl", "cxx_toolchain")
+load(":python.bzl", "python_bootstrap_toolchain")
 load(":rust.bzl", "rust_toolchain")
 
-system_python_bootstrap_toolchain(
+python_bootstrap_toolchain(
     name = "python_bootstrap",
     visibility = ["PUBLIC"],
 )
