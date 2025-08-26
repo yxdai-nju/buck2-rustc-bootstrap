@@ -37,6 +37,13 @@ if __name__ == "__main__":
         elif instruction == "--cp":
             source, dest = next(argv), next(argv)
             shutil.copy2(parse(source), parse(dest))
+        elif instruction == "--elaborate":
+            link = parse(next(argv))
+            target = link.readlink()
+            link.unlink()
+            link.mkdir()
+            for f in (link.parent / target).iterdir():
+                (link / f.name).symlink_to(".." / target / f.name)
         elif instruction == "--exec":
             exe = parse(next(argv))
             env = os.environ.copy()

@@ -94,4 +94,5 @@ ci_llvm(
 python_bootstrap_binary(
     name = "frob",
     main = "frob.py",
+    visibility = ["PUBLIC"],
 )
