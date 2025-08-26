@@ -1,3 +1,15 @@
+# It is strongly recommend to set the following in .buckconfig.local for faster
+# runner startup time:
+#
+#     [remote_execution_properties]
+#     dockerNetwork = off
+#
+_buckconfig_remote_execution_properties = {
+    prop: read_config("remote_execution_properties", prop)
+    for prop in ["dockerNetwork"]
+    if read_config("remote_execution_properties", prop)
+}
+
 def executor_config(configuration: ConfigurationInfo) -> CommandExecutorConfig:
     use_windows_path_separators = False
     for value in configuration.constraints.values():
@@ -9,9 +21,8 @@ def executor_config(configuration: ConfigurationInfo) -> CommandExecutorConfig:
             local_enabled = True,
             remote_enabled = True,
             use_limited_hybrid = True,
-            remote_execution_properties = {
+            remote_execution_properties = _buckconfig_remote_execution_properties | {
                 "OSFamily": "Linux",
-                "dockerNetwork": "off",
                 "container-image": "docker://docker.io/dtolnay/buck2-rustc-bootstrap:latest",
             },
             remote_execution_use_case = "buck2-rustc-bootstrap",
