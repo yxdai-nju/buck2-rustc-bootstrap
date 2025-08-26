@@ -30,6 +30,7 @@ def _rust_tool_impl(ctx: AnalysisContext) -> list[Provider]:
             ["--mkdir", "{dist}/bin"],
             ["--cp", "{exe}", "{dist}/bin/" + ctx.label.name],
             ["--symlink", "{llvm}/lib", "{dist}/lib"],
+            ["--elaborate", "{dist}/lib"],
         ],
         category = "dist",
     )
