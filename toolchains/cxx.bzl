@@ -18,12 +18,31 @@ load("@prelude//os_lookup:defs.bzl", "Os", "OsLookup")
 load("@prelude//toolchains:cxx.bzl", "CxxToolsInfo")
 load("//target:target_triple.bzl", "TargetTriple")
 
+def _compute_llvm_target_triple(target_triple: str) -> str:
+    """
+    Convert target triple to LLVM compatible format.
+    
+    Handles differences between Rust and LLVM for riscv64 variants.
+    E.g., riscv64gc-unknown-linux-gnu -> riscv64-unknown-linux-gnu
+    """
+    if target_triple.startswith("riscv64"):
+        parts = target_triple.split("-", 1)
+        if len(parts) == 2:
+            arch = parts[0]
+            rest = parts[1]
+
+            if arch != "riscv64":
+                return "riscv64-" + rest
+
+    return target_triple
+
 def _cxx_toolchain_impl(ctx: AnalysisContext):
     target = ctx.attrs._target_os_type[OsLookup]
     target_triple = ctx.attrs.target_triple[TargetTriple].value
+    llvm_target_triple = _compute_llvm_target_triple(target_triple)
     tools = ctx.attrs._cxx_tools_info[CxxToolsInfo]
 
-    linker_flags = []
+    linker_flags = ["--target={}".format(llvm_target_triple)]
     if target.os == Os("linux") and tools.linker != "g++" and tools.cxx_compiler != "g++":
         linker_flags.append("-fuse-ld=lld")
 
@@ -82,22 +101,22 @@ def _cxx_toolchain_impl(ctx: AnalysisContext):
             ),
             cxx_compiler_info = CxxCompilerInfo(
                 compiler = RunInfo(tools.cxx_compiler),
-                compiler_flags = ["--target={}".format(target_triple)] + ctx.attrs.cxx_flags,
+                compiler_flags = ["--target={}".format(llvm_target_triple)] + ctx.attrs.cxx_flags,
                 compiler_type = tools.compiler_type,
             ),
             c_compiler_info = CCompilerInfo(
                 compiler = RunInfo(tools.compiler),
-                compiler_flags = ["--target={}".format(target_triple)] + ctx.attrs.c_flags,
+                compiler_flags = ["--target={}".format(llvm_target_triple)] + ctx.attrs.c_flags,
                 compiler_type = tools.compiler_type,
             ),
             as_compiler_info = CCompilerInfo(
                 compiler = RunInfo(tools.compiler),
-                compiler_flags = ["--target={}".format(target_triple)],
+                compiler_flags = ["--target={}".format(llvm_target_triple)],
                 compiler_type = tools.compiler_type,
             ),
             asm_compiler_info = CCompilerInfo(
                 compiler = RunInfo(tools.asm_compiler),
-                compiler_flags = ["--target={}".format(target_triple)],
+                compiler_flags = ["--target={}".format(llvm_target_triple)],
                 compiler_type = tools.asm_compiler_type,
             ),
             header_mode = HeaderMode("symlink_tree_only"),
