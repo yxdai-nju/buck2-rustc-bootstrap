@@ -36,8 +36,20 @@ llvm_preprocessor_flags(
     visibility = ["//:rustc_llvm-0.0.0-llvm-wrapper-compile"],
 )
 
+export_file(
+    name = "linker-flags-dynamic",
+    src = "llvm-config-libs-dynamic.txt",
+)
+
+export_file(
+    name = "linker-flags-static",
+    src = "llvm-config-libs-static.txt",
+)
+
 llvm_linker_flags(
     name = "linker-flags",
+    linker_flags_dynamic = ":linker-flags-dynamic",
+    linker_flags_static = ":linker-flags-static",
     llvm_config = ":host-llvm-config",
 )
 
